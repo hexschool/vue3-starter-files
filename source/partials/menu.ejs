@@ -1,0 +1,10 @@
+<div class="list-group">
+<% menus.forEach(function(menu){ %><% if ( menu.url == current) { %>
+    <a href="/<%- path %>/<%- menu.url %>.html"  class="list-group-item list-group-item-action active">
+      <%- menu.name %>
+    </a><% } else { %>
+    <a href="/<%- path %>/<%- menu.url %>.html"  class="list-group-item list-group-item-action">
+      <%- menu.name %>
+    </a>
+<% } %><% }); %>
+</div>

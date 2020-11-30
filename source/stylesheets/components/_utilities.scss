@@ -1,0 +1,45 @@
+
+// .box {
+//   display: inline-block;
+//   width: 5rem;
+//   height: 5rem;
+//   margin: .25rem;
+//   background-color: #f5f5f5;
+//   border: 1px solid;
+// }
+
+// .bg-lighter {
+//   background-color: theme-color('light');
+//   // background-color: $gray-200;
+// }
+
+// .over-flow-x {
+//   overflow-x: hidden;
+// }
+
+// // position
+// .relative {
+//   position: relative
+// }
+
+// .bg-primary-gradient {
+//   background: linear-gradient(90deg, theme-color('primary') 15%,#B97EE4 75%,#BA8AFF 94%);
+// }
+
+// .skew-section {
+//   transform: skewY($rotate-degree);
+//   & > * {
+//     transform: skewY(-$rotate-degree);
+//   }
+// }
+// .skew-bg {
+//   transform: skewY($rotate-degree);
+// }
+// .skew-bg {
+//   position: absolute;
+//   left: 0;
+//   right: 0;
+//   top: 0;
+//   bottom: 0;
+//   z-index: -1;
+// }

@@ -1,0 +1,55 @@
+---
+title: 箭頭函式的 this 指向差異
+layout: ./source/_layout.ejs
+current: arrow_function
+menu: es6
+engine: ejs
+---
+<script>
+// #1 箭頭函式的縮寫
+const arr = [1, 2, 3, 4, 5];
+
+const filterArr = arr.filter(item => item % 2); // 取有餘數的值（單數）
+console.log(filterArr);
+
+
+// #2 This 綁定的差異
+// #2-1 活用觀念，將內層的改為箭頭
+// var name = '全域'
+// const person = {
+//   name: '小明',
+//   callName: function () { 
+//     console.log('1', this.name); // 1 漂亮阿姨
+//     setTimeout(function () {
+//       console.log('2', this.name); // 2 漂亮阿姨
+//       console.log('3', this); // 3 person 這個物件
+//     }, 10);
+//   },
+// }
+// person.callName();
+
+
+// #3 陷阱
+// #3-1
+// var name = '全域'
+// const person = {
+//   name: '小明',
+//   callName: () => { 
+//     console.log(this.name); // 請尋找箭頭所在的作用域為何？
+//   },
+// }
+// person.callName();
+
+// #3-2
+var name = '全域'
+const person = {
+  name: '小明',
+  callMe() {
+    const callName = () => { 
+      console.log(this.name); // 請尋找箭頭所在的作用域為何？
+    };
+    callName();
+  }
+}
+person.callMe();
+</script>

@@ -1,0 +1,37 @@
+---
+title: ES 模組
+layout: ./source/_layout.ejs
+current: esModule_2
+menu: es6
+engine: ejs
+description:
+---
+<script type="module">
+// #1 每一個 type="module" 的作用域都是獨立的
+
+var a = 1;
+window.b = 2;
+</script>
+<script>
+// console.log(a); // 無法讀取到 另一個 type="module" 內的變數
+console.log(window.b); // 包含 window 下的全域變數亦是如此
+</script>
+<div id="app">{{ counter }}</div>
+<script type="module">
+// #2 可以運用的 ESM 套件
+// 網路上找到的 “ESM”，如果條件允許是可以使用 import 方式載入
+// https://cdnjs.com/libraries/vue
+// 比對語法：https://v3.vuejs.org/guide/introduction.html#declarative-rendering
+import { createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.esm-browser.js';
+
+const Counter = {
+  data() {
+    return {
+      counter: 0
+    }
+  }
+}
+
+createApp(Counter).mount('#app')
+
+</script>

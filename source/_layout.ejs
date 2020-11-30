@@ -1,0 +1,49 @@
+<!DOCTYPE html><html><head><title><%= title %></title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="images/favicon.ico" rel="shortcut icon"><meta charset="UTF-8">
+<script src="/javascripts/vendor.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script>
+</head><% var menus = {
+  es6: [{
+      name: '縮寫',
+      url: 'shorthand'
+    }, {
+      name: 'this 的運作',
+      url: 'this'
+    }, {
+      name: '箭頭函式',
+      url: 'arrow_function'
+    }, {
+      name: '關注點分離',
+      url: 'separation_of_concerns'
+    }, {
+      name: '關注點分離 練習題',
+      url: 'separation_of_concerns_work'
+    }, {
+      name: '物件參考特性',
+      url: 'object_reference'
+    }, {
+      name: 'Promise',
+      url: 'promise'
+    }, {
+      name: 'ES Module',
+      url: 'esModule'
+    }, {
+      name: 'ES Module 2',
+      url: 'esModule_2'
+    }
+  ],
+}; var description; %><body class="bg-lighter"><div class="container my-5"><div class="row"><main class="col post"> 
+<!-- 章節標題 --><h1 class="mt-0 text-muted"><%= title %></h1>
+<% if (description) { %><div class="alert bg-light"><%- description %></div><% } %>
+<!-- 🔥🔥練習開始🔥🔥 -->
+<%- contents %>
+<!-- 🙇🙇練習結束🙇🙇 -->
+</main>
+<% if (menu) { %>
+<aside class="col-md-3"><%- include('partials/menu', {current: current, menus: menus[menu], path: menu}) %></aside>
+<% } %>
+</div></div>
+<%- include partials/navbar %>
+<link rel="stylesheet" href="/stylesheets/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</body>
+</html>

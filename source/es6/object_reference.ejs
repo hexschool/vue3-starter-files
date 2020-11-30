@@ -1,0 +1,72 @@
+---
+title: 物件參考特性
+layout: ./source/_layout.ejs
+current: object_reference
+menu: es6
+engine: ejs
+description:
+---
+<script>
+// 因為關注點分離，畫面由框架來處理，開發者將專注於資料處理
+// 因此資料處理的知識顯得格外重要
+
+// #1 物件是以傳參考的形式賦值
+// const person = {
+//   name: '小明',
+//   obj: {}
+// }
+// const person2 = person;
+// person.obj.age = 16;
+
+// person2.name = '杰倫';
+// console.log(person);
+// console.log(person2 === person);
+// 注意：陣列、物件都是傳參考的形式
+
+// #2 陷阱
+// const fn = (item) => {
+//   item.name = '杰倫';
+//   // ...
+// }
+// const person = {
+//   name: '小明',
+//   obj: {}
+// }
+// fn(person);
+// // ...
+
+// console.log(person);
+// 關於：這樣的錯誤，ESLint 也有建議不要這麼做（但你是有經驗的開發者時，下方也有提供關閉的方式）
+// https://cn.eslint.org/docs/rules/no-param-reassign
+
+// #3 解決方案
+// #3-1 淺層拷貝
+// const person = {
+//   name: '小明',
+//   obj: {}
+// }
+
+// const person2 = Object.assign({}, person);
+// const person3 = {
+//   ...person
+// }
+
+// console.log(person === person2, person === person3);
+
+// person2.obj.age = 16;
+// person3.obj.age = 17;
+
+// console.log(person2.obj, person3.obj, person2.obj === person.obj)
+
+
+// #3-2 深層拷貝
+// const person = {
+//   name: '小明',
+//   obj: {}
+// }
+
+// const person2 = JSON.parse(JSON.stringify(person));
+// person2.obj.name = '深層';
+// console.log(person, person2);
+
+</script>

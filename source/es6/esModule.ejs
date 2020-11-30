@@ -1,0 +1,46 @@
+---
+title: ES 模組
+layout: ./source/_layout.ejs
+current: esModule
+menu: es6
+engine: ejs
+description:
+---
+<div class="component">
+  <ul></ul>
+</div>
+
+<script type="module">
+// #1 匯出匯入本一體，先掌握匯出更容易理解匯入
+// #1-1 將標籤定義 <script type="module">
+// #1-2 預設匯出：defaultExport.js
+// 常見的匯出方式，通常用於匯出物件，在 Vue 開發中可用來匯出元件
+
+// #1-3 具名匯出：namedExport.js
+// 可用於匯出已定義的變數、物件、函式，專案開發中通常用於 “方法匯出”
+// 第三方的框架、函式、套件很常使用具名定義 “方法”
+
+// #2 匯入方法
+// #2-1 預設匯入
+// 因為預設匯出沒有名字，所以可以為它命名
+import newComponent from './defaultExport.js'; // 記得加上 .js
+newComponent.render('.component');
+// 注意：因為傳參考的特性，因此元件無法重複利用（Vue.js 中會解決此問題）
+
+// #2-2 具名匯入
+// 單一匯入（建議寫法）
+// import { a, c } from './namedExport.js';
+// console.log(a);
+// console.log(c(1, 2));
+
+// 全部匯入（不建議，錯誤較難發現）
+// import * as namedAll from './namedExport.js';
+// console.log(namedAll.a);
+// namedAll.b();
+
+// #3 SideEffect
+// sideEffect.js（沒有包含匯出的檔案）
+import './sideEffect.js';
+console.log($);
+
+</script>

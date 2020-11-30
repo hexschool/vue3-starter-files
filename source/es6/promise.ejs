@@ -1,0 +1,100 @@
+---
+title: Promise
+layout: ./source/_layout.ejs
+current: promise
+menu: es6
+engine: ejs
+description:
+---
+<!-- 本章節額外載入的遠端套件 -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+// #1 非同步的觀念
+// function getData() {
+//   setTimeout(() => {
+//     console.log('... 已取得遠端資料');
+//   }, 0);
+// }
+// const component = {
+//   init() {
+//     console.log(1);
+//     getData();
+//     console.log(2);
+//   }
+// }
+// component.init();
+
+// 更正確的說法，Promise 是為了解決傳統非同步語法難以建構及管理的問題，如有興趣可搜尋 "callback hell js"
+
+// #2 Promise
+// 在此不需要學習 Promise 的建構方式，僅需要了解如何運用即可
+const promiseSetTimeout = (status) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (status) {
+        resolve('promiseSetTimeout 成功')
+      } else {
+        reject('promiseSetTimeout 失敗')
+      }
+    }, 0);
+  })
+}
+
+// #2-1 基礎運用
+// promiseSetTimeout(true)
+//   .then((res) => {
+//     console.log(res);
+//   });
+
+// #2-2 串接
+// promiseSetTimeout(true)
+//   .then((res) => {
+//     console.log(res);
+//     return promiseSetTimeout(true);
+//   })
+//   .then((res) => {
+//     console.log(2, res);
+//   })
+
+// #2-3 失敗捕捉
+// promiseSetTimeout(false)
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch(res => {
+//     console.log(res);
+//   })
+
+// #2-4 元件運用
+// const component = {
+//   data: {},
+//   init() {
+//     promiseSetTimeout(true)
+//       .then((res) => {
+//         this.data.res = res;
+//         console.log(this.data.res);
+//       });
+//   }
+// }
+// component.init();
+
+// #3 實戰取得遠端資料
+// #3-1
+// axios.get('https://randomuser.me/api/')
+//   .then(res => {
+//     console.log(res.data.results[0]);
+//   });
+
+// #3-2 記得捕捉錯誤，Axios 錯誤捕捉技巧
+axios.get('https://randomuser.me/api/gg')
+  .then(res => {
+    console.log(res.data.results[0]);
+  })
+  .catch(err => {
+    // 無法看到回應細節
+    console.log(err);
+
+    // 如果要看到回應結果，Axios 固定格式如下
+    console.log(err.response);
+  })
+</script>
