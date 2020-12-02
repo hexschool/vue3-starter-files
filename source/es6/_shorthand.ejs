@@ -22,6 +22,18 @@ const obj = {
 
 console.log(obj.fn());
 
+// 新增語法：會影響運作
+var myName = '全域';
+const obj2 = {
+  myName: '物件',
+  fn: () => {
+    return this.myName;
+  }
+}
+
+console.log(obj2.fn());
+
+
 // =====
 // #2 物件字面值 Object literals
 // #2-1 物件內的函式
@@ -39,6 +51,11 @@ console.log(obj.fn());
 //   name: '小明'
 // };
 
+// const people = {
+//   person: person, // 請改為縮寫
+// };
+
+// console.log(people.person === person);
 
 
 
@@ -47,9 +64,9 @@ console.log(obj.fn());
 const groupA = ['小明', '杰倫', '阿姨'];
 const groupB = ['老媽', '老爸'];
 const groupAll = groupA.concat(groupB);
+// const groupAll = [...groupA, ...groupB];
 
 // #3-2 物件擴展
-// 新增一個物件包含新方法，同時加入原有的方法
 const methods = {
   fn1() {
     console.log(1);
@@ -58,11 +75,19 @@ const methods = {
     console.log(1);
   },
 }
-
+const newMethods = {
+  fn() {
+    console.log(0)
+  },
+  ...methods
+}
+console.log(newMethods);
 
 // #3-3 轉成純陣列
 const doms = document.querySelectorAll('li');
 console.log(doms); // 請轉為純陣列
+// const spreadDom = [...doms];
+// console.log(spreadDom);
 
 
 // #4 預設值

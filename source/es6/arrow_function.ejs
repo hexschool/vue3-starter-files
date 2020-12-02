@@ -9,8 +9,8 @@ engine: ejs
 // #1 箭頭函式的縮寫
 const arr = [1, 2, 3, 4, 5];
 
-const filterArr = arr.filter(item => item % 2); // 取有餘數的值（單數）
-console.log(filterArr);
+// const filterArr = arr.filter(item => item % 2); // 取有餘數的值（單數）
+// console.log(filterArr);
 
 
 // #2 This 綁定的差異
@@ -19,10 +19,10 @@ console.log(filterArr);
 // const person = {
 //   name: '小明',
 //   callName: function () { 
-//     console.log('1', this.name); // 1 漂亮阿姨
+//     console.log('1', this.name); // 1 小明
 //     setTimeout(function () {
-//       console.log('2', this.name); // 2 漂亮阿姨
-//       console.log('3', this); // 3 person 這個物件
+//       console.log('2', this.name); // 2
+//       console.log('3', this); // 3
 //     }, 10);
 //   },
 // }
@@ -41,15 +41,33 @@ console.log(filterArr);
 // person.callName();
 
 // #3-2
-var name = '全域'
-const person = {
-  name: '小明',
-  callMe() {
-    const callName = () => { 
-      console.log(this.name); // 請尋找箭頭所在的作用域為何？
-    };
-    callName();
-  }
-}
-person.callMe();
+// var name = '全域'
+// const person = {
+//   name: '小明',
+//   callMe() {
+//     const callName = () => { 
+//       console.log(this.name); // 請尋找箭頭所在的作用域為何？
+//     };
+//     callName();
+//   }
+// }
+// person.callMe();
+
+// #4 實戰手法
+// var someone = '全域';
+// function callSomeone() {
+//   console.log(this.someone);
+// }
+
+// var obj4 = {
+//   someone: '物件 4',
+//   fn() {
+//     // const vm = this; // vm 在 Vue 中意指 ViewModel
+//     setTimeout(function () {
+//       console.log(this.someone);
+//     });
+//   }
+// }
+
+// obj4.fn();
 </script>

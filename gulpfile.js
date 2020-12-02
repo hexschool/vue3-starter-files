@@ -81,7 +81,6 @@ gulp.task('imageMin', function () {
 
 gulp.task('vendorJs', function () {
   return gulp.src([
-      './node_modules/vue/dist/vue.global.js',
       './node_modules/bootstrap/dist/js/bootstrap.bundle.js'
     ])
     .pipe($.order([
