@@ -15,7 +15,6 @@ description:
 //     console.log('... 已取得遠端資料');
 //   }, 0);
 // }
-// // 請問取得資料的順序為何
 // const component = {
 //   init() {
 //     console.log(1);
@@ -42,28 +41,60 @@ const promiseSetTimeout = (status) => {
 }
 
 // #2-1 基礎運用
-
+// promiseSetTimeout(true)
+//   .then((res) => {
+//     console.log(res);
+//   });
 
 // #2-2 串接
-
+// promiseSetTimeout(true)
+//   .then((res) => {
+//     console.log(res);
+//     return promiseSetTimeout(true);
+//   })
+//   .then((res) => {
+//     console.log(2, res);
+//   })
 
 // #2-3 失敗捕捉
-
+// promiseSetTimeout(false)
+//   .then((res) => {
+//     console.log(res);
+//   })
+//   .catch(res => {
+//     console.log(res);
+//   })
 
 // #2-4 元件運用
 // const component = {
 //   data: {},
 //   init() {
-
+//     promiseSetTimeout(true)
+//       .then((res) => {
+//         this.data.res = res;
+//         console.log(this.data.res);
+//       });
 //   }
 // }
-
+// component.init();
 
 // #3 實戰取得遠端資料
 // #3-1
-// https://github.com/axios/axios
+// axios.get('https://randomuser.me/api/')
+//   .then(res => {
+//     console.log(res.data.results[0]);
+//   });
 
 // #3-2 記得捕捉錯誤，Axios 錯誤捕捉技巧
-// https://randomuser.me/
+axios.get('https://randomuser.me/api/gg')
+  .then(res => {
+    console.log(res.data.results[0]);
+  })
+  .catch(err => {
+    // 無法看到回應細節
+    console.log(err);
 
+    // 如果要看到回應結果，Axios 固定格式如下
+    console.log(err.response);
+  })
 </script>

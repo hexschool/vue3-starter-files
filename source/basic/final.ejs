@@ -1,0 +1,130 @@
+---
+title: Vue 體驗，製作一個簡易購物車
+layout: ./source/_layout.ejs
+current: final
+menu: basic
+engine: ejs
+---
+<div id="app">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <img :src="product.imageUrl" alt="" class="img-fluid">
+    </div>
+    <div class="col-md-6">
+      <h2>{{ product.name }}</h2>
+      <h4>{{ product.subTitle }}</h4>
+      <p>{{ product.description }}</p>
+      <p class="text-right">
+        {{ product.price }}
+      </p>
+      <div>
+        <a href="#" class="p-3 d-inline-block border mr-2"
+          @click.prevent="selectItem(item)"
+          v-for="item in product.spec"
+          :style="{ backgroundColor: item.color }"
+          :key="item.name"
+        ></a>
+      </div>
+      <hr>
+      <div class="text-right" v-if="selectedItem.name">
+        <div v-if="!selectedItem.inStock">{{ selectedItem.name }} 已售完</div>
+        <div v-else>
+          {{ selectedItem.name }} 尚有存貨
+          <a href="#" class="btn btn-primary"
+          @click.prevent="addToCart(product, selectedItem)">加入購物車</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-10">
+      <table class="table mt-5">
+        <tbody>
+          <tr v-for="(item, key) in cart" :key="key">
+            <td><button type="button" @click="removeItem(key)">刪除</button></td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.spec.name }}</td>
+            <td class="text-right">{{ item.price }}</td>
+          </tr>
+          <tr>
+            <td colspan="4" class="text-right">合計 {{ sum }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <form>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email</label>
+          <input type="email" class="form-control" id="email" 
+          v-model="customer.email"
+          placeholder="name@example.com">
+        </div>
+        <div class="mb-3">
+          <label for="name" class="form-label">姓名</label>
+          <input type="text" class="form-control" id="name" 
+          v-model="customer.name"
+          placeholder="陳小明">
+        </div>
+      </form>
+    </div>
+  </div>
+  {{ cart }} {{ customer }}
+</div>
+<script>
+const App = {
+  data() {
+    return {
+      product: {
+        id: '23456789',
+        imageUrl: 'https://images.unsplash.com/photo-1516906571665-49af58989c4e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=600&q=80',
+        name: 'MacBook Pro',
+        subTitle: '全系統，全面 Pro。',
+        description: 'Apple M1 晶片賦予 13 吋 MacBook Pro 令人驚歎的速度與威力。CPU 效能最快達 2.8 倍，繪圖處理速度最快達 5 倍。得益於我們最先進的神經網路引擎，機器學習速度最快也可達 11 倍。此外，電池續航力最長達 20 小時，更是 Mac 歷來之最。這款我們最受歡迎的專業筆記型電腦，從今起，晉升全新境界。',
+        price: 39900,
+        spec: {
+          sliver: {
+            name: '銀色',
+            color: 'white',
+            inStock: false,
+          },
+          gray: {
+            name: '灰色',
+            color: '#6c757d',
+            inStock: true,
+          }
+        }
+      },
+      selectedItem: {},
+      cart: [],
+      customer: {}
+    }
+  },
+  methods: {
+    selectItem(spec) {
+      this.selectedItem = spec;
+      console.log('selectItem', spec, this.selectItem);
+    },
+    addToCart(product, spec) {
+      const timeStamp = new Date().getTime();
+      const item = {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        spec,
+        timeStamp
+      }
+      this.cart.push(item);
+    },
+    removeItem(key) {
+      this.cart.splice(key, 1);
+    }
+  },
+  computed: {
+    sum() {
+      const total = this.cart.reduce((acc, current) => {
+        return acc + current.price;
+      }, 0);
+      return total;
+    }
+  }
+};
+
+Vue.createApp(App).mount('#app')
+</script>

@@ -12,7 +12,13 @@ description: 因為關注點分離，畫面由框架來處理，開發者將專�
 //   name: '小明',
 //   obj: {}
 // }
+// const person2 = person;
+// person.obj.age = 16;
 
+// person2.name = '杰倫';
+// console.log(person);
+// console.log(person2 === person);
+// 注意：陣列、物件都是傳參考的形式
 
 // #2 陷阱
 // const fn = (item) => {
@@ -37,11 +43,27 @@ description: 因為關注點分離，畫面由框架來處理，開發者將專�
 //   obj: {}
 // }
 
+// const person2 = Object.assign({}, person);
+// const person3 = {
+//   ...person
+// }
+
+// console.log(person === person2, person === person3);
+
+// person2.obj.age = 16;
+// person3.obj.age = 17;
+
+// console.log(person2.obj, person3.obj, person2.obj === person.obj)
+
 
 // #3-2 深層拷貝
 // const person = {
 //   name: '小明',
 //   obj: {}
 // }
+
+// const person2 = JSON.parse(JSON.stringify(person));
+// person2.obj.name = '深層';
+// console.log(person, person2);
 
 </script>

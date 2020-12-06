@@ -9,42 +9,54 @@ engine: ejs
 <div class="component">
   <ul></ul>
 </div>
+<script>
+
+
+</script>
+
 
 <script>
 // #1 資料、畫面、方法分離
 // 畫面 = html
 // 資料 = component.data
 // 方法 = 物件內的其它函式
-const component = {
-  data: [ // 資料
-    '這是第一句話',
-    '這是第二句話',
-    '這是第三句話'
-  ],
-  
-  render() { // 渲染方法
-    const list = document.querySelector('.component ul');
-    let content = '';
-    this.data.forEach((item, i) => {
-      content = `${content}<li>${item} <button type="button" class="btn" data-id="${i}">移除</button></li>`
-    });
-    // 縮寫優化
-    // const content = component.data.map(item => `<li>${item}</li>`).join('');
-    list.innerHTML = content;
 
-    // 加入監聽
-    const btns = document.querySelectorAll('.btn');
-    btns.forEach(btn => btn.addEventListener('click', (e)=> {
-      // #2 重點，移除項目是先移除資料，而不是直接移除 DOM
-      // 如果要進行 AJAX 或更複雜行為，不會因為 DOM 與資料混合而難以運作
-      const id = e.target.dataset.id;
-      this.data.splice(id, 1);
-      this.render();
-    }))
-  }
-}
-component.render();
+// #2 元件結構
+// 1. 資料
+// 2. 方法、觸發器
+// 3. 生命週期（初始化）
+// const component = {
+//   data: [ // 資料
+//     '這是第一句話',
+//     '這是第二句話',
+//     '這是第三句話'
+//   ],
+//   removeData(id) {
+//     this.data.splice(id, 1);
+//     this.render();
+//   },
+//   render() { // 渲染方法
+//     const list = document.querySelector('.component ul');
+//     let content = '';
+//     this.data.forEach((item, i) => {
+//       content = `${content}<li>${item} <button type="button" class="btn" data-id="${i}">移除</button></li>`
+//     });
+//     // 縮寫優化
+//     // const content = component.data.map(item => `<li>${item}</li>`).join('');
+//     list.innerHTML = content;
 
-
-
+//     // 加入監聽
+//     const btns = document.querySelectorAll('.btn');
+//     btns.forEach(btn => btn.addEventListener('click', (e)=> {
+//       // #2 重點，移除項目是先移除資料，而不是直接移除 DOM
+//       // 如果要進行 AJAX 或更複雜行為，不會因為 DOM 與資料混合而難以運作
+//       const id = e.target.dataset.id;
+//       this.removeData(id)
+//     }))
+//   },
+//   init() {
+//     this.render();
+//   }
+// }
+// component.init();
 </script>

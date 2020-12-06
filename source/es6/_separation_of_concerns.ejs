@@ -1,15 +1,13 @@
 ---
 title: 關注點分離
 layout: ./source/_layout.ejs
-current: separation_of_concerns_work
+current: separation_of_concerns
 menu: es6
 engine: ejs
 ---
 
 <div class="component">
   <ul></ul>
-  <input type="text" class="inputData">
-  <button type="button" class="addBtn">增加內容</button>
 </div>
 
 <script>
@@ -45,17 +43,14 @@ const component = {
     // 加入監聽
     const btns = document.querySelectorAll('.btn');
     btns.forEach(btn => btn.addEventListener('click', (e)=> {
-      // #2 重點，移除項目是先移除資料，而不是直接移除 DOM
+      // #3 重點，移除項目是先移除資料，而不是直接移除 DOM
       // 如果要進行 AJAX 或更複雜行為，不會因為 DOM 與資料混合而難以運作
       const id = e.target.dataset.id;
       this.removeData(id)
     }))
-  },
-  init() {
-    this.render();
   }
 }
-component.init();
+component.render();
 
 
 
