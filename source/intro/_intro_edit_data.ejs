@@ -1,0 +1,109 @@
+---
+title: 資料編輯
+layout: ./source/_layout.ejs
+current: intro_edit_data
+menu: intro
+engine: ejs
+---
+
+<div id="app">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>標題</th>
+        <th>圖片</th>
+        <th>銷售狀態</th>
+        <th>編輯</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="item in products" :key="item.id"
+        :class="{'table-success': item.onStock}">
+        <td>{{ item.name }}</td>
+        <td>
+          <img :src="item.imageUrl" alt="" height="100">
+        </td>
+        <td>
+          <input type="checkbox" v-model="item.onStock">
+        </td>
+        <td>
+          <button type="button" class="btn btn-outline-primary"
+          v-on:click="editItem(item)">修改</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <form>
+    <div class="mb-3">
+      <label for="productName" class="form-label">產品名稱</label>
+      <input type="text" id="productName"
+        class="form-control"
+        v-model="temp.name"
+      >
+    </div>
+    <div class="mb-3">
+      <img :src="temp.imageUrl" class="img-fluid d-block" alt="" width="300">
+      <label for="productImage"
+      class="form-label">產品圖片</label>
+      <input type="text" id="productImage"
+        class="form-control"
+        v-model="temp.imageUrl"
+      >
+    </div>
+    <button type="button"
+    class="btn btn-secondary"
+    v-on:click="confirmEdit">更新</button>
+  </form>
+</div>
+
+<script>
+const products = [{
+  id: '1',
+  imageUrl: 'https://images.unsplash.com/photo-1516906571665-49af58989c4e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=300&q=80',
+  name: 'MacBook Pro',
+  onStock: false,
+},{
+  id: '2',
+  imageUrl: 'https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+  name: 'iPhone',
+  onStock: false,
+}];
+const App = {
+  data() {
+    return {
+      products: [],
+      temp: {
+        name: '卡斯伯',
+        imageUrl: 'https://images.unsplash.com/photo-1602526430780-782d6b1783fa?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
+      }
+    }
+  },
+  methods: {
+    editItem(item) {
+      // 重點說明
+      this.temp = { ...item }
+    },
+    confirmEdit() {
+      // 大幅調整
+      if (this.isNew) {
+        this.temp.id = new Date().getTime();
+        this.temp.onStock = false;
+        this.products.push(this.temp);
+        this.isNew = false;
+        this.temp = {};
+        return;
+      }
+      this.products.forEach((item, i) => {
+        if (item.id === this.temp.id) {
+          this.products[i] = this.temp;
+        }
+      });
+    }
+  },
+  created() {
+    this.products = products;
+  }
+};
+
+Vue.createApp(App).mount('#app');
+</script>

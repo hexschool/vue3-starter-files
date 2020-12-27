@@ -1,0 +1,42 @@
+---
+title: 雙向綁定
+layout: ./source/_layout.ejs
+current: two_way_binding
+menu: intro
+engine: ejs
+---
+
+<div id="app">
+  <form>
+    <div class="mb-3">
+      <label for="productName" class="form-label">產品名稱</label>
+      <input type="text" id="productName"
+        class="form-control"
+      >
+    </div>
+    <div class="mb-3">
+      <img src="https://images.unsplash.com/photo-1602526430780-782d6b1783fa?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80" class="img-fluid" alt="">
+      <label for="productImage"
+      class="form-label">產品圖片</label>
+      <input type="text" id="productImage"
+        class="form-control"
+      >
+    </div>
+    <button type="button"
+    class="btn btn-secondary">更新</button>
+  </form>
+</div>
+
+<script>
+const App = {
+  data() {
+    return {
+
+    }
+  },
+  methods: {
+  },
+};
+
+Vue.createApp(App).mount('#app');
+</script>
