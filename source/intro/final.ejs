@@ -1,5 +1,5 @@
 ---
-title: Vue 體驗，製作一個商品後台
+title: 最終成品細節調整
 layout: ./source/_layout.ejs
 current: final
 menu: intro
@@ -7,10 +7,7 @@ engine: ejs
 ---
 
 <div id="app">
-  <div class="text-right">
-    <button type="button" class="btn btn-dark"
-      @click="isNew = true">新增</button>
-  </div>
+  
   <table class="table">
     <thead>
       <tr>
@@ -37,7 +34,7 @@ engine: ejs
       </tr>
     </tbody>
   </table>
-  <form v-if="temp.id || isNew">
+  <form>
     <div class="mb-3">
       <label for="productName" class="form-label">產品名稱</label>
       <input type="text" id="productName"
@@ -60,22 +57,22 @@ engine: ejs
 </div>
 
 <script>
+const products = [{
+  id: '1',
+  imageUrl: 'https://images.unsplash.com/photo-1516906571665-49af58989c4e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=300&q=80',
+  name: 'MacBook Pro',
+  onStock: false,
+},{
+  id: '2',
+  imageUrl: 'https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
+  name: 'iPhone',
+  onStock: false,
+}];
 const App = {
   data() {
     return {
-      products: [{
-        id: '1',
-        imageUrl: 'https://images.unsplash.com/photo-1516906571665-49af58989c4e?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=300&q=80',
-        name: 'MacBook Pro',
-        onStock: false,
-      },{
-        id: '2',
-        imageUrl: 'https://images.unsplash.com/photo-1512499617640-c74ae3a79d37?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=300&q=80',
-        name: 'iPhone',
-        onStock: false,
-      }],
+      products: [],
       temp: {},
-      isNew: false,
     }
   },
   methods: {
@@ -83,19 +80,24 @@ const App = {
       this.temp = { ...item }
     },
     confirmEdit() {
-      if (this.isNew) {
+      if (!this.temp.id) {
         this.temp.id = new Date().getTime();
+        this.temp.onStock = false;
         this.products.push(this.temp);
         this.isNew = false;
+      } else {
+        this.products.forEach((item, i) => {
+          if (item.id === this.temp.id) {
+            this.products[i] = this.temp;
+          }
+        });
       }
-      this.products.forEach((item, i) => {
-        if (item.id === this.temp.id) {
-          this.products[i] = this.temp;
-        }
-      });
       this.temp = {};
     }
   },
+  created() {
+    this.products = products;
+  }
 };
 
 Vue.createApp(App).mount('#app');

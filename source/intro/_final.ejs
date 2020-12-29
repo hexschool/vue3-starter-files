@@ -1,12 +1,16 @@
 ---
-title: 資料編輯
+title: Vue 體驗，製作一個商品後台
 layout: ./source/_layout.ejs
-current: intro_edit_data
+current: final
 menu: intro
 engine: ejs
 ---
 
 <div id="app">
+  <div class="text-right">
+    <button type="button" class="btn btn-dark"
+      @click="isNew = true">新增</button>
+  </div>
   <table class="table">
     <thead>
       <tr>
@@ -33,7 +37,7 @@ engine: ejs
       </tr>
     </tbody>
   </table>
-  <form>
+  <form v-if="temp.id || isNew">
     <div class="mb-3">
       <label for="productName" class="form-label">產品名稱</label>
       <input type="text" id="productName"
@@ -42,7 +46,6 @@ engine: ejs
       >
     </div>
     <div class="mb-3">
-      <img :src="temp.imageUrl" class="img-fluid d-block" alt="" width="300">
       <label for="productImage"
       class="form-label">產品圖片</label>
       <input type="text" id="productImage"
@@ -72,30 +75,24 @@ const App = {
   data() {
     return {
       products: [],
-      temp: {
-        name: '卡斯伯',
-        imageUrl: 'https://images.unsplash.com/photo-1602526430780-782d6b1783fa?ixid=MXwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80'
-      }
+      temp: {},
+      isNew: false,
     }
   },
   methods: {
     editItem(item) {
-      // 重點說明
       this.temp = { ...item }
     },
     confirmEdit() {
-      // 大幅調整
-      if (!this.temp.id) {
+      if (this.isNew) {
         this.temp.id = new Date().getTime();
-        this.temp.onStock = false;
         this.products.push(this.temp);
-      } else {
-        this.products.forEach((item, i) => {
-          if (item.id === this.temp.id) {
-            this.products[i] = this.temp;
-          }
-        });
       }
+      this.products.forEach((item, i) => {
+        if (item.id === this.temp.id) {
+          this.products[i] = this.temp;
+        }
+      });
       this.temp = {};
     }
   },
