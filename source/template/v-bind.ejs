@@ -1,0 +1,157 @@
+---
+title: 屬性綁定
+layout: ./source/_layout.ejs
+current: v-bind
+menu: template
+engine: ejs
+---
+
+<div id="app">
+  <h3>綁定屬性 v-bind</h3>
+  <p>{{ breakfastShop.name }}</p>
+  <img v-bind:src="breakfastShop.imgUrl" v-bind:title="breakfastShop.name" class="square-img" alt="">
+
+  <h3>縮寫形式 <code>:</code></h3>
+  <img :src="breakfastShop.imgUrl" :title="breakfastShop.name" class="square-img" alt="">
+
+  <hr>
+  <h3>更多屬性綁定</h3>
+  小明還想點餐：
+  <form action="">
+    <input type="text" value="我要吃蘿蔔糕">
+    <button type="submit" :disabled="isFull">送出</button>
+  </form>
+
+  <button type="button" v-on:click="change('isFull')">狀態切換</button>
+
+  <hr>
+  <h3>搭配 v-for</h3>
+  <table class="table">
+    <tbody>
+      <tr v-for="item in products" :key="item.imgUrl">
+        <td>
+          <img :src="item.imgUrl" class="square-img" alt="">
+        </td>
+        <td>
+          {{ item.name }}
+        </td>
+        <td>
+          {{ item.price }}元
+        </td>
+        <td>
+          <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" :id="item.name" >
+            <label class="form-check-label" :for="item.name">
+              我要這個
+            </label>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <hr>
+  <h3>表達式運用（串接）</h3>
+  <p>{{ imageSize }}</p>
+  <input type="range" min="100" max="1000" v-model="imageSize">
+  <br>
+  <img :src="`${breakfastShop.resizeImg}&w=${imageSize}`" alt=""
+  >
+  
+  <hr>
+  <h3>動態屬性綁定(注意大小寫)</h3>
+  <button type="button"
+  v-on:click="dynamic = dynamic === 'disabled' ? 'readonly':'disabled'">切換為 {{ dynamic }}</button>
+  <br>
+  <input type="text" :[dynamic]="" :value="name">
+
+  <hr>
+  <h3>預告：元件的資料傳遞亦是使用 v-bind</h3>
+  <ul>
+    <list-item :item="item" v-for="(item, key) in products" :key="item.name + 2"></list-item>
+  </ul>
+</div>
+
+<script>
+const App = {
+  data() {
+    return {
+      name: '小明',
+      isFull: false,
+      link: '小明',
+      imageSize: 200,
+      dynamic: 'disabled',
+      breakfastShop: {
+        name: '奇蹟早餐',
+        imgUrl: 'https://images.unsplash.com/photo-1600182610361-4b4d664e07b9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80',
+        resizeImg: 'https://images.unsplash.com/photo-1600182610361-4b4d664e07b9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&q=80'
+      },
+      products: [
+        {
+          name: '蛋餅',
+          price: 30,
+          vegan: false,
+          imgUrl: 'https://images.unsplash.com/photo-1607278967323-8766a3a501e6?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80'
+        },
+        {
+          name: '飯糰',
+          price: 35,
+          vegan: false,
+          imgUrl: 'https://images.unsplash.com/photo-1603245460565-5a7b42a6a6f4?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80'
+        },
+        {
+          name: '小籠包',
+          price: 60,
+          vegan: false,
+          imgUrl: 'https://images.unsplash.com/photo-1595424265370-3e02d3e6c10c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80'
+        }
+      ],
+      productsObj: {
+        chineseOmelette: {
+          name: '蛋餅',
+          price: 30,
+          vegan: false
+        },
+        riceBall: {
+          name: '飯糰',
+          price: 35,
+          vegan: false
+        },
+        soupDumpling: {
+          name: '小籠包',
+          price: 60,
+          vegan: false
+        },
+        radishCake: {
+          name: '蘿蔔糕',
+          price: 30,
+          vegan: true
+        }
+      },
+    }
+  },
+  methods: {
+    change: function (key) {
+      this[key] = !this[key];
+    },
+  },
+};
+
+Vue.createApp(App)
+  .component('list-item', {
+    template: `
+      <li>
+        {{ item.name}} / {{ item.price }} 元
+      </li>
+    `,
+    props: ['item']
+  }).mount('#app');
+</script>
+
+<style>
+.square-img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+</style>

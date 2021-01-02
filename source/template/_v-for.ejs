@@ -1,0 +1,138 @@
+---
+title: 呈現多筆資料
+layout: ./source/_layout.ejs
+current: v-for
+menu: template
+engine: ejs
+---
+
+<div id="app">
+  <h3>呈現多筆資料於畫面上 v-for</h3>
+  <p>菜單</p>
+  <ul>
+    <li v-for="(item, key) in products">
+      {{ key }} - {{ item.name}} / {{ item.price }} 元
+    </li>
+  </ul>
+
+  <h3>物件回圈</h3>
+  <ul>
+    <li v-for="(item, key) in productsObj">
+      {{ key }} - {{ item.name}} / {{ item.price }} 元
+    </li>
+  </ul>
+
+  <h3>純數值回圈</h3>
+  <ul>
+    <li v-for="i in 5">{{i}}</li>
+  </ul>
+
+  <h3>v-for 與 key</h3>
+  <p>菜單</p>
+  <ul>
+    <li v-for="(item, key) in products" v-bind:key="item.name">
+      {{ key }} - {{ item.name}} / {{ item.price }} 元
+      <input type="text">
+    </li>
+  </ul>
+  <p>說明：有相同父元素的子元素必須有獨特的 key。重複的 key 會造成渲染錯誤。</p>
+  <button type="button" v-on:click="reverseArray">反轉資料內容</button>
+
+  <hr>
+  <h3>進階技巧：在 template 標籤使用 v-for</h3>
+  <table class="table">
+    <tbody>
+      <template v-for="(item, key) in products" :key="item.name">
+        <tr>
+          <th rowspan="2">{{ key + 1 }}</th>
+          <td colspan="2">
+            {{ item.name }}
+          </td>
+        </tr>
+        <tr>
+          <td>
+            {{ item.price }}元
+          </td>
+          <td>
+            {{ item.vegan? '可素食': '不可素食' }}
+          </td>
+        </tr>
+      </template>
+    </tbody>
+  </table>
+  <p><a href="https://vue3js.cn/docs/zh/guide/list.html#%E5%9C%A8-template-%E4%B8%AD%E4%BD%BF%E7%94%A8-v-for">參考介紹</a></p>
+
+  <h3>補充說明：v-for 與元件</h3>
+  <ul>
+    <list-item :item="item" v-for="(item, key) in products" :key="item.name + 2"></list-item>
+  </ul>
+</div>
+
+<script>
+const App = {
+  data() {
+    return {
+      name: '小明',
+      products: [
+        {
+          name: '蛋餅',
+          price: 30,
+          vegan: false
+        },
+        {
+          name: '飯糰',
+          price: 35,
+          vegan: false
+        },
+        {
+          name: '小籠包',
+          price: 60,
+          vegan: false
+        },
+        {
+          name: '蘿蔔糕',
+          price: 30,
+          vegan: true
+        },
+      ],
+      productsObj: {
+        chineseOmelette: {
+          name: '蛋餅',
+          price: 30,
+          vegan: false
+        },
+        riceBall: {
+          name: '飯糰',
+          price: 35,
+          vegan: false
+        },
+        soupDumpling: {
+          name: '小籠包',
+          price: 60,
+          vegan: false
+        },
+        radishCake: {
+          name: '蘿蔔糕',
+          price: 30,
+          vegan: true
+        }
+      },
+    }
+  },
+  methods: {
+    reverseArray: function () {
+      this.products.reverse();
+    },
+  },
+};
+
+Vue.createApp(App)
+  .component('list-item', {
+    template: `
+      <li>
+        {{ item.name}} / {{ item.price }} 元
+      </li>
+    `,
+    props: ['item']
+  }).mount('#app');
+</script>

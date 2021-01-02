@@ -1,0 +1,37 @@
+---
+title: v-model 修飾符
+layout: ./source/_layout.ejs
+current: v-model-modifiers
+menu: template
+engine: ejs
+---
+
+<div id="app">
+  <h3>修飾符</h3>
+  <h4 class="mt-3">延遲 Lazy</h4>
+  {{ lazyMsg }}
+  <input type="text" class="form-control" v-model.lazy="lazyMsg">
+  <h4 class="mt-3">純數值 Number</h4>
+  {{ numberMsg }}{{ typeof numberMsg }}
+  <input type="number" class="form-control" v-model.number="numberMsg">
+  <h4 class="mt-3">修剪 Trim</h4>
+  這是一段{{ trimMsg }}緊黏的文字
+  <input type="text" class="form-control" v-model.trim="trimMsg">
+
+  <h3>自定義修飾符</h3>
+  <p>介紹：<a href="https://vue3js.cn/docs/zh/guide/component-custom-events.html#%E5%A4%84%E7%90%86-v-model-%E4%BF%AE%E9%A5%B0%E7%AC%A6">透過元件自定義修飾符</a></p>
+</div>
+
+<script>
+const App = {
+  data() {
+    return {
+      lazyMsg: '',
+      numberMsg: '',
+      trimMsg: ''
+    }
+  },
+};
+
+Vue.createApp(App).mount('#app');
+</script>

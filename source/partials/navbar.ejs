@@ -5,13 +5,13 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav">
         <li class="nav-item active">
-          <a class="nav-link" href="/es6/shorthand.html">JS 必備觀念</a>
+          <a class="nav-link <%= menu === 'es6' ? 'active' : ''%>" href="/es6/shorthand.html">JS 必備觀念</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/intro/createApp.html">認識 Vue.js</a>
+          <a class="nav-link <%= menu === 'intro' ? 'active' : ''%>" href="/intro/createApp.html">認識 Vue.js</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">模板</a>
+          <a class="nav-link <%= menu === 'template' ? 'active' : ''%>" href="/template/v-text.html">模板</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">方法</a>

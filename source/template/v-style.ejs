@@ -1,0 +1,90 @@
+---
+title: 樣式切換
+layout: ./source/_layout.ejs
+current: v-style
+menu: template
+engine: ejs
+---
+
+<div id="app">
+  <h2>切換 Class</h2>
+  <h3>物件寫法</h3>
+  <div class="box" :class="{ 'rotate': isTransform, 'bg-danger': boxColor }"></div>
+  <hr>
+  <button class="btn btn-outline-primary" v-on:click="change('isTransform')">選轉物件</button>
+  <button class="btn btn-outline-primary ms-1" v-on:click="change('boxColor')">切換色彩</button>
+
+  <hr class="mt-4">
+  <h3>物件寫法 2</h5>
+  <div class="box" :class="objectClass"></div>
+
+  <hr>
+  <h4>陣列寫法</h4>
+  <button class="btn" :class="arrayClass">請操作本元件</button>
+  <button type="button"
+    class="btn btn-outline-primary"
+    v-on:click="addClass(['btn-primary', 'active'])">為陣列加入 Class</button>
+
+  <hr>
+  <h2>行內樣式</h2>
+  <h4>綁定行內樣式</h4>
+  <div class="box" :style="{backgroundColor: styleObject.backgroundColor}"></div>
+  <div class="box" :style="styleObject"></div>
+  <div class="box" :style="[styleObject, styleObject2]"></div>
+</div>
+
+<script>
+const App = {
+  data() {
+    return {
+      isTransform: true,
+      boxColor: false,
+      objectClass: {
+        'rotate': false,
+        'bg-danger': false,
+      },
+
+      // Array 操作
+      arrayClass: [''],
+
+      // 行內樣式
+      // 使用駝峰式命名
+      styleObject: {
+        backgroundColor: 'red',
+        borderWidth: '5px'
+      },
+      styleObject2: {
+        boxShadow: '3px 3px 5px rgba(0, 0, 0, 0.16)'
+      },
+      styleObject3: {
+        userSelect: 'none'
+      }
+    };
+  },
+  methods: {
+    change: function (key) {
+      this[key] = !this[key];
+    },
+    addClass(arr) {
+      this.arrayClass.push(...arr);
+    }
+  },
+};
+
+Vue.createApp(App).mount('#app');
+</script>
+
+<style>
+.box {
+  background-color: var(--bs-light);
+  border: 1px solid var(--bs-gray);
+  width: 80px;
+  height: 80px;
+}
+.box {
+  transition: all .5s;
+}
+.box.rotate {
+  transform: rotate(45deg)
+}
+</style>

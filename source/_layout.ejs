@@ -60,10 +60,60 @@
       name: '最終成品細節調整',
       url: 'final'
     }
+  ],
+  template: [
+    {
+      name: '渲染資料於畫面上',
+      url: 'v-text',
+      class: 'success'
+    },
+    {
+      name: '呈現多筆資料',
+      url: 'v-for',
+      class: 'success'
+    },
+    {
+      name: '渲染判斷',
+      url: 'v-if',
+      class: 'success'
+    },
+    {
+      name: '屬性綁定',
+      url: 'v-bind',
+      class: 'success'
+    },
+    {
+      name: '樣式切換',
+      url: 'v-style',
+      class: 'success'
+    },
+    {
+      name: 'v-model 與表單',
+      url: 'form',
+      class: 'danger'
+    },
+    {
+      name: 'v-model 修飾符',
+      url: 'v-model-modifiers',
+      class: 'danger'
+    },
+    {
+      name: 'v-on 事件觸發',
+      url: 'v-on',
+      class: 'info'
+    },
+    {
+      name: 'v-on 修飾符',
+      url: 'v-on-modifiers',
+      class: 'info'
+    },
+    {
+      name: '章節挑戰',
+      url: 'directive-final',
+    }
   ]
 }; var description; %><body class="bg-lighter"><div class="container my-5"><div class="row"><main class="col post"> 
-<!-- 章節標題 --><h1 class="mt-0 text-muted"><%= title %></h1>
-<small>檔名：<code><%= current %>.html</code></small><% if (description) { %><div class="alert bg-light"><%- description %></div><% } %>
+<!-- 章節標題 --><div class="mb-4"><h1 class="mt-0 text-muted"><%= title %></h1><small>檔名：<code><%= current %>.html</code></small><% if (description) { %><div class="alert bg-light"><%- description %></div><% } %></div>
 <!-- 🔥🔥練習開始🔥🔥 -->
 <%- contents %>
 <!-- 🙇🙇練習結束🙇🙇 -->

@@ -84,7 +84,6 @@ gulp.task('vendorJs', function () {
       './node_modules/bootstrap/dist/js/bootstrap.bundle.js'
     ])
     .pipe($.order([
-      'jquery.js',
       'bootstrap.js'
     ]))
     .pipe($.concat('vendor.js'))

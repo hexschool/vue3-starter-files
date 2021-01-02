@@ -1,0 +1,167 @@
+---
+title: v-model 與表單
+layout: ./source/_layout.ejs
+current: form
+menu: template
+engine: ejs
+---
+
+<div id="app">
+  <h3>input</h3>
+  <input type="text" class="form-control" v-model="name">
+  {{ name }}
+
+  <hr>
+  <h3>textarea</h3>
+  <textarea cols="30" rows="3" class="form-control" v-model="text"></textarea>
+  {{ text }}
+  
+  <hr>
+  <h3>checkbox 單選框</h3>
+  <p>小明，你是吃飽沒？</p>
+  <p>{{ checkAnswer ? '吃飽了' : '還沒'}}</p>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="check1" v-model="checkAnswer">
+    <label class="form-check-label" for="check1">小明回覆</label>
+  </div>
+
+  <hr>
+  <h3>checkbox 單選延伸</h3>
+  <p>小明，你是吃飽沒？</p>
+  <p>{{ checkAnswer2 }}</p>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="check2" v-model="checkAnswer2"
+      true-value="飽了" false-value="還沒">
+    <label class="form-check-label" for="check2">小明回覆</label>
+  </div>
+
+  <hr>
+  <h3>checkbox 複選框</h3>
+  <p>你還要吃什麼？</p>
+  <p>{{ checkAnswer3.join(' ') }}</p>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="check3" value="蛋餅" v-model="checkAnswer3">
+    <label class="form-check-label" for="check3">蛋餅</label>
+  </div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="check4" value="蘿蔔糕" v-model="checkAnswer3">
+    <label class="form-check-label" for="check4">蘿蔔糕</label>
+  </div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" id="check5" value="豆漿" v-model="checkAnswer3">
+    <label class="form-check-label" for="check5">豆漿</label>
+  </div>
+
+  <hr>
+  <h3>radio 單選框</h3>
+  <p>你還要吃什麼？</p>
+  <p>{{ radioAnswer }}</p>
+  <div class="form-check">
+    <input type="radio" class="form-check-input" id="radio1" value="蛋餅" v-model="radioAnswer">
+    <label class="form-check-label" for="radio1">蛋餅</label>
+  </div>
+  <div class="form-check">
+    <input type="radio" class="form-check-input" id="radio2" value="蘿蔔糕" v-model="radioAnswer">
+    <label class="form-check-label" for="radio2">蘿蔔糕</label>
+  </div>
+  <div class="form-check">
+    <input type="radio" class="form-check-input" id="radio3" value="豆漿" v-model="radioAnswer">
+    <label class="form-check-label" for="radio3">豆漿</label>
+  </div>
+
+  <hr>
+  <h3>select 單選</h3>
+  <p>你還要吃什麼？</p>
+  <p>{{ selectAnswer }}</p>
+  <select class="form-select" v-model="selectAnswer">
+    <option selected disabled value="">說吧，你要吃什麼？</option>
+    <option :value="item.name" v-for="item in products" :key="item.name">
+    {{item.name}} / {{item.price}} 元</option>
+  </select>
+
+  <hr>
+  <h3>select 多選</h3>
+  <p>你還要吃什麼？</p>
+  <p>{{ selectAnswer2 }}</p>
+  <select class="form-select" v-model="selectAnswer2" multiple>
+    <option selected disabled value="">說吧，你要吃什麼？</option>
+    <option :value="item.name" v-for="item in products" :key="item.name">
+    {{item.name}} / {{item.price}} 元</option>
+  </select>
+</div>
+
+<script>
+const App = {
+  data() {
+    return {
+      name: '小明',
+      text: '一段文字敘述',
+      checkAnswer: false,
+      checkAnswer2: '',
+      checkAnswer3: [],
+      radioAnswer: '蛋餅',
+      selectAnswer: '',
+      selectAnswer2: [],
+      products: [
+        {
+          name: '蛋餅',
+          price: 30,
+          vegan: false
+        },
+        {
+          name: '飯糰',
+          price: 35,
+          vegan: false
+        },
+        {
+          name: '小籠包',
+          price: 60,
+          vegan: false
+        },
+        {
+          name: '蘿蔔糕',
+          price: 30,
+          vegan: true
+        },
+      ],
+      productsObj: {
+        chineseOmelette: {
+          name: '蛋餅',
+          price: 30,
+          vegan: false
+        },
+        riceBall: {
+          name: '飯糰',
+          price: 35,
+          vegan: false
+        },
+        soupDumpling: {
+          name: '小籠包',
+          price: 60,
+          vegan: false
+        },
+        radishCake: {
+          name: '蘿蔔糕',
+          price: 30,
+          vegan: true
+        }
+      },
+    }
+  },
+  methods: {
+    reverseArray: function () {
+      this.products.reverse();
+    },
+  },
+};
+
+Vue.createApp(App)
+  .component('list-item', {
+    template: `
+      <li>
+        {{ item.name}} / {{ item.price }} 元
+      </li>
+    `,
+    props: ['item']
+  }).mount('#app');
+</script>
