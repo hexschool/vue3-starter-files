@@ -1,0 +1,257 @@
+---
+title: 章節挑戰
+layout: ./source/_layout.ejs
+current: directive-final
+menu: template
+engine: ejs
+---
+
+<div id="app">
+  <div class="container gx-2">
+    <div class="row gx-3 bg-light py-3">
+      <div class="col-md-4">
+        <div class="list-group">
+          <a href="#" class="list-group-item list-group-item-action">
+            <h6 class="card-title mb-1">珍珠鮮奶茶</h6>
+            <div class="d-flex align-items-center justify-content-between">
+              <p class="mb-0"><small>Pearl Milk Tea</small></p>
+              <p class="mb-0"><small>NT$ 60</small></p>
+            </div>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card mb-2">
+          <!-- <div class="position-absolute text-white d-flex align-items-center justify-content-center" style="top: 0;bottom: 0;left: 0;right: 0;background-color: rgba(0, 0, 0, 0.65); z-index: 100;">請先選擇飲品</div> -->
+          <div class="card-body px-4">
+            <div class="mb-3">
+              <label for="productNum" class="form-label">數量</label>
+              <input type="number" class="form-control" id="productNum" placeholder="數量" min="0">
+            </div>
+            <div class="mb-3">
+              <label for="productNum" class="form-label d-block">冰塊*</label>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" name="iceType" type="radio" id="正常冰">
+                <label class="form-check-label" for="正常冰">正常冰</label>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="productNum" class="form-label d-block">甜度*</label>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" name="sugarType" type="radio" id="全糖">
+                <label class="form-check-label" for="全糖">全糖</label>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="productNum" class="form-label d-block">加料</label>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="椰果">
+                <label class="form-check-label" for="椰果">椰果</label>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="productNotice" class="form-label">備註</label>
+              <textarea class="form-control" id="productNotice" rows="2"></textarea>
+            </div>
+            <div class="d-flex gap-2">
+              <button class="btn btn-outline-primary w-100" type="button">取消</button>
+              <button class="btn btn-primary w-100" type="button">加入</button>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th scope="col">品項</th>
+                  <th scope="col">冰塊</th>
+                  <th scope="col">甜度</th>
+                  <th scope="col">加料</th>
+                  <th scope="col">單價</th>
+                  <th scope="col">數量</th>
+                  <th scope="col">小計</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">珍珠鮮奶茶<br>
+                    <small class="text-muted fw-normal">備註：阿姨，我不想努力了</small>
+                  </th>
+                  <td>正常冰</td>
+                  <td>全糖</td>
+                  <td>椰果</td>
+                  <td>70</td>
+                  <td>1</td>
+                  <td class="text-end">70</td>
+                </tr>
+              </tbody>
+            </table>
+            <p class="text-end">共 NT$ 70 元</p>
+            <button class="btn btn-sm btn-secondary w-100">產生訂單</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bg-light p-3 mt-3">
+    <div class="bg-white p-3 d-flex flex-column" style="min-height: 450px;">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">品項</th>
+            <th scope="col">冰塊</th>
+            <th scope="col">甜度</th>
+            <th scope="col">加料</th>
+            <th scope="col">單價</th>
+            <th scope="col">數量</th>
+            <th scope="col">小計</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">珍珠鮮奶茶<br>
+              <small class="text-muted fw-normal">備註：阿姨，我不想努力了</small>
+            </th>
+            <td>正常冰</td>
+            <td>全糖</td>
+            <td>椰果</td>
+            <td>70</td>
+            <td>1</td>
+            <td class="text-end">70</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="mt-3 mb-1">訂單成立時間：2021-01-12 03:37:01</p>
+      <p class="mb-1">餐點數： 1</p>
+      <p class="mb-1">付款狀態：未付款</p>
+      <p class="text-end mt-auto">共 NT$ 70 元</p>
+    </div>
+  </div>
+</div>
+
+<script>
+const App = {
+  data() {
+    return {
+      iceType: ['正常冰', '少冰', '微冰', '去冰', '熱'],
+      sugarType: ['全糖', '七分', '半糖', '三分', '無糖'],
+      toppingsType: ['珍珠', '粉條', '小粉圓', '椰果', '芋頭'],
+      products: [
+        {
+          name: '珍珠鮮奶茶',
+          engName: 'Pearl Milk Tea',
+          price: 60,
+          defaults: {
+            toppings: ['珍珠'],
+            sugar: '',
+            ice: '',
+          }
+        },
+        {
+          name: '椰果鮮奶茶',
+          engName: 'Coconut Milk Tea',
+          price: 60,
+          defaults: {
+            toppings: ['椰果'],
+            sugar: '',
+            ice: '',
+          }
+        },
+        {
+          name: '鮮奶茶',
+          engName: 'Milk Tea',
+          price: 50,
+          defaults: {
+            toppings: [''],
+            sugar: '',
+            ice: '',
+          }
+        },
+        {
+          name: '古意冬瓜茶 (糖固定)',
+          engName: 'Winter Melon Drink',
+          price: 30,
+          defaults: {
+            toppings: [''],
+            sugar: '全糖',
+            ice: '',
+          }
+        },
+        {
+          name: '蜜香紅茶',
+          engName: 'Black Tea',
+          price: 30,
+          defaults: {
+            toppings: [''],
+            sugar: '',
+            ice: '',
+          }
+        },
+        {
+          name: '包種青茶',
+          engName: 'Black Tea',
+          price: 35,
+          defaults: {
+            toppings: [''],
+            sugar: '',
+            ice: '',
+          }
+        },
+        {
+          name: '檸檬烏龍',
+          engName: 'Lemon Oolong Tea',
+          price: 55,
+          defaults: {
+            toppings: [''],
+            sugar: '',
+            ice: '',
+          }
+        },
+        {
+          name: '薑母茶 (熱飲)',
+          engName: 'Ginger Tea',
+          price: 55,
+          defaults: {
+            toppings: [''],
+            sugar: '',
+            ice: '熱',
+          }
+        },
+        {
+          name: '青草茶',
+          engName: 'Herbal Tea',
+          price: 35,
+          defaults: {
+            toppings: [''],
+            sugar: '',
+            ice: '',
+          }
+        },
+        {
+          name: '金桔檸檬',
+          engName: 'Kumquat Lemonade',
+          price: 40,
+          defaults: {
+            toppings: [''],
+            sugar: '',
+            ice: '',
+          }
+        },
+        {
+          name: '柳澄青茶',
+          engName: 'Orange Mountain Tea',
+          price: 45,
+          defaults: {
+            toppings: [''],
+            sugar: '',
+            ice: '',
+          }
+        },
+      ],
+    }
+  },
+};
+
+Vue.createApp(App).mount('#app');
+</script>
