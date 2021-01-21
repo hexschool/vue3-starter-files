@@ -5,41 +5,43 @@ current: v-on
 menu: template
 engine: ejs
 ---
+
 <div id="app">
   <h3>觸發事件 與 縮寫*</h3>
   <div class="box" :class="{ rotate: isTransform }"></div>
   <hr>
-  <button class="btn btn-outline-primary">選轉物件</button>
+  <button class="btn btn-outline-primary" @click="changeClass">選轉物件</button>
   <br>
   <h3>帶入參數*</h3>
   <div class="box" :class="{ rotate: isTransform }"></div>
   <hr>
-  <button class="btn btn-outline-primary">選轉物件</button>
+  <button class="btn btn-outline-primary" @click="change('isTransform')">選轉物件</button>
   
   <hr>
   <h3>原生 DOM 事件*</h3>
-  <!-- https://developer.mozilla.org/en-US/docs/Web/Events -->
   <h4>input change 事件</h4>
-  <input type="text">
+  <input type="text" @change="onChange">
   <br><br>
   <h4>form submit 事件</h4>
-  <form>
+  <form @submit.prevent="submitForm">
     <input type="text" v-model="name">
     <button>送出表單</button>
   </form>
   <hr>
   <h3>動態事件 []</h3>
-  <input type="text">
+  <input type="text" @[event]="dynamicEvent">
   <input type="text" v-model="event">
 
   <hr>
   <h3>動態物件方法 {}</h3>
   <!-- 此方法無法傳入參數 -->
-  <button class="box">
+  <button class="box"
+    v-on="{ mousedown: down,
+    mouseup: up }">
   </button>
   <hr>
   <h3>作為運算*</h3>
-  {{ double }}
+  {{ double(num) }}
   <input type="number" v-model.number="num">
 </div>
 
@@ -60,7 +62,7 @@ const App = {
     change(key) {
       this[key] = !this[key];
     },
-    onChange(evt) {
+    onChange(evt) { // 如果沒有參數，則會帶入觸發的 “事件物件”，如果有變數則可以使用 $event 傳入
       console.log(evt)
     },
     submitForm() {

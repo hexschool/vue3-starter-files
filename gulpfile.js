@@ -99,10 +99,11 @@ gulp.task('browserSync', function () {
 });
 
 gulp.task('deploy', function () {
-  return gulp.src('./public/**/*')
-    .pipe($.ghPages({
-      remoteUrl: 'https://github.com/hexschool/vue3-exercise.git'
-    }))
+  return gulp.src('./public/**/*').pipe(
+    $.ghPages({
+      remoteUrl: 'git@github.com:hexschool/vue3-starter-files.git',
+    })
+  );
 })
 
 gulp.task('watch', function (done) {

@@ -6,39 +6,12 @@ menu: template
 engine: ejs
 ---
 <div id="app">
-  <h3>字串 v-text 與 <code v-pre>{{}}</code> (Mustache)</h3>
-  <p>小明在早餐店吃早餐</p>
-  <p><span></span>在<span></span>吃早餐</p>
-  <input type="text" v-model="name">
 
-  <hr>
-  <h3>原始字串 v-html</h3>
-  {{ rawHtml }}
-  <p><a href="https://vue3js.cn/docs/zh/api/directives.html#v-html">注意事項</a></p>
-
-  <hr>
-  <h3>單次綁定 v-once</h3>
-  <p>{{ name }}在{{ position }}吃早餐</p>
-  <input type="text" v-model="name">
-
-  <hr>
-  <h3>進階技巧：表達式</h3>
-  <p>樣板字面值：{{  }}</p>
-  <p>反轉字串：{{  }}</p>
-  <p>綁定 methods：{{  }}</p>
-  <p>JS 運算：{{  }}</p>
-
-  <hr>
-  <h3>進階技巧：顯示資料狀態</h3>
-  <p>顯示目前的陣列內容</p>
-
-  <hr>
-  <h3>顯示 <span v-pre>{{ }}</span></h3>
-  <p>這段文字不會被轉譯：{{ name }}在{{ position }}吃早餐</p>
 </div>
 
 <script>
 const App = {
+  name: 'Hexschool Component',
   data() {
     return {
       name: '小明',
@@ -67,12 +40,36 @@ const App = {
           vegan: true
         }
       ],
+      selected: [
+        {
+          name: '蛋餅',
+          price: 30,
+          vegan: false
+        },
+        {
+          name: '飯糰',
+          price: 35,
+          vegan: false
+        },
+      ]
     }
   },
   methods: {
     say(name) {
       return `${name}在${this.position}吃早餐`
     }
+  },
+  computed: {
+    total() {
+      const total = this.selected.reduce((curr, next) => {
+        return curr + next.price;
+      }, 0);
+      console.log(total);
+      return total;
+    }
+  },
+  created() {
+
   }
 };
 

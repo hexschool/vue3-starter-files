@@ -1,0 +1,76 @@
+---
+title: 補充：v-on DOM 事件
+layout: ./source/_layout.ejs
+current: v-on-dom-event
+menu: template
+engine: ejs
+---
+
+<div id="app">
+  <h3>原生 DOM 事件</h3>
+  <a href="https://www.w3schools.com/jsref/dom_obj_event.asp">參考：DOM 事件</a>
+  <div class="box" :class="{ rotate: isTransform }"></div>
+  <hr>
+  <!-- 當沒有參數時，預設第一個則是 dom 事件參數 -->
+  <button class="btn btn-outline-primary" @click="changeClass">選轉物件</button>
+  <button class="btn btn-outline-primary" @keyup.enter="changeClass">按鈕事件</button>
+  <!-- 當如果有參數時，則可以使用 $event -->
+  <button class="btn btn-outline-primary" @click="changeClassWithEvent('這段是自訂參數', $event)">自訂參數</button>
+  <br>
+  <br>
+  <h3>取得原生 input 數值</h3>
+  <input type="text" @change="inputEvent">
+  <br><br>
+  <h3>監聽按鍵事件</h3>
+  <input type="text" @keyup="keyboardEvent">
+
+</div>
+
+<script>
+const App = {
+  data() {
+    return {
+      text: '小明',
+      isTransform: true,
+      num: 10,
+    }
+  },
+  methods: {
+    changeClass: function(e) {
+      console.log('dom', e);
+      this.isTransform = !this.isTransform;
+    },
+    changeClassWithEvent(parameter, e) {
+      console.log(parameter, e);
+    },
+    inputEvent(e) {
+      console.log(e);
+    },
+    keyboardEvent(e) {
+      console.dir(e.keyCode)
+      // if (e.keyCode === 13) {
+      //   alert('你按下了 Enter')
+      // } else if (e.keyCode === 32) {
+      //   alert('你按下了 空白鍵')
+      // }
+    }
+  }
+};
+Vue.createApp(App).mount('#app');
+</script>
+
+<style>
+.box {
+  display: block;
+  background-color: var(--bs-light);
+  border: 1px solid var(--bs-gray);
+  width: 80px;
+  height: 80px;
+}
+.box {
+  transition: all .5s;
+}
+.box.rotate {
+  transform: rotate(45deg)
+}
+</style>
