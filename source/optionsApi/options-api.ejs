@@ -1,0 +1,82 @@
+---
+title: Option API
+layout: ./source/_layout.ejs
+current: options-api
+menu: optionsApi
+engine: ejs
+---
+
+<div id="app">
+  <h3>什麼是 options API 與 composition API</h3>
+  <h5>Option API Sample</h5>
+  <button type="button" @click="trigger">{{ num }}</button>
+
+  <h3>常見的 Option API</h3>
+  <ul>
+    <li>data(本章節介紹、部分在元件章節介紹)</li>
+    <li>template(元件章節)</li>
+    <li>生命週期(本章節介紹)</li>
+    <li>資源(元件章節、外部套件)</li>
+    <li>組合(部分介紹)</li>
+    <li>雜項(部分介紹)</li>
+  </ul>
+
+  <h3>option API 與 this</h3>
+
+
+</div>
+<hr>
+<div id="compositionApp">
+  <h5>Composition API Sample</h5>
+  <button type="button" @click="trigger">{{ num }}</button>
+</div>
+
+<!-- https://vue3js.cn/docs/zh/api/options-api.html -->
+<script>
+const App = {
+  name: '漂亮的元件',
+  data() {
+    return {
+      num: 0,
+    }
+  },
+  methods: {
+    trigger: function() {
+      this.num++
+    }
+  },
+  created() {
+    this.num = 1;
+    console.log(this);
+  }
+};
+Vue.createApp(App).mount('#app');
+</script>
+
+<!-- https://vue3js.cn/docs/zh/api/composition-api.html#setup -->
+<script type="module">
+  import { ref, onMounted, createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.5/vue.esm-browser.js';
+
+  const CompositionApp = {
+    setup() {
+      // 定義資料
+      const num = ref(0);
+      // 生命週期
+      onMounted(() => {
+        num.value = 1;
+      });
+      // Methods
+      function trigger() {
+        console.log('trigger')
+        num.value++;
+      }
+      // 匯出方法、資料
+      return {
+        trigger,
+        num
+      }
+    }
+  }
+  createApp(CompositionApp).mount('#compositionApp')
+</script>
+

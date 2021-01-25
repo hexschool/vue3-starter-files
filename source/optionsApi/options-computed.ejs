@@ -1,0 +1,81 @@
+---
+title: Computed
+layout: ./source/_layout.ejs
+current: options-computed
+menu: optionsApi
+engine: ejs
+---
+
+<div id="app">
+
+  <h3>Computed 將目前的數值運算呈現至畫面上</h3>
+  <ul>
+    <li v-for="product in products">
+      {{ product.name }} / {{ product.price }}
+      <button type="button" @click="addToCart(product)">加入購物車</button>
+    </li>
+  </ul>
+  ...
+  <h6>購物車項目</h6>
+  <ul>
+    <li v-for="item in carts">{{ item.name }}</li>
+  </ul>
+  total 的值：{{ total }}<br>
+
+  <h3>Computed Getter, Setter</h3>
+  sum 的值：{{ sum }}
+</div>
+
+<script>
+const App = {
+  data() {
+    return {
+      num: 10,
+      products: [
+        {
+          name: '蛋餅',
+          price: 30,
+          vegan: false
+        },
+        {
+          name: '飯糰',
+          price: 35,
+          vegan: false
+        },
+        {
+          name: '小籠包',
+          price: 60,
+          vegan: false
+        },
+        {
+          name: '蘿蔔糕',
+          price: 30,
+          vegan: true
+        },
+      ],
+      carts: [],
+      sum: 0,
+    }
+  },
+  computed: {
+    total: {
+      get() {
+        return this.carts.reduce((curr, next) => curr + next.price , 0)
+      },
+      set(val) {
+        this.sum = val;
+      }
+    }
+  },
+  methods: {
+    addToCart(product) {
+      this.carts.push(product)
+      this.calculate()
+    },
+  },
+  created() {
+    console.log(this);
+  }
+};
+Vue.createApp(App).mount('#app');
+</script>

@@ -1,0 +1,153 @@
+---
+title: Watch
+layout: ./source/_layout.ejs
+current: options-watch
+menu: optionsApi
+engine: ejs
+---
+
+<div id="app">
+
+  <h3>watch 監聽單一變數</h3>
+  <label for="name">名字須超過十個字</label>
+  <input type="text" id="name" v-model="tempName">
+  <P>result: {{ result }}</P>
+  <p>name: {{ name }}</p>
+
+  <h3>watch vs computed</h3>
+  <h5>Watch</h5>
+  <ul>
+    <li>監聽單一 “變數” 觸發事件</li>
+    <li>該函式可同時操作多個變數</li>
+  </ul>
+
+  <h5>Computed</h5>
+  <ul>
+    <li>監聽多個變數觸發事件</li>
+    <li>會產生一個值</li>
+    <li>該值可以選擇呈現在畫面上，或寫入其它變數（通常只會操作一個變數）</li>
+  </ul>
+
+  <label for="productName">商品名稱</label><input type="text" v-model="productName"><br>
+  <label for="productPrice">商品價格</label><input type="number" v-model.number="productPrice"><br>
+  <label><input type="checkbox"  v-model="productVegan"> 素食</label>
+  <p>result2: {{ result2 }}</p>
+
+  <h3>watch 深層監聽</h3>
+  <label for="productName">商品名稱</label><input type="text" v-model="product.name"><br>
+  <label for="productPrice">商品價格</label><input type="number" v-model.number="product.price"><br>
+  <label><input type="checkbox"  v-model="product.vegan"> 素食</label>
+  <p>result3: {{ result3 }}</p>
+  <p>result4: {{ result4 }}</p>
+
+</div>
+
+<script>
+const App = {
+  data() {
+    return {
+      name: '',
+      tempName: '',
+      result: '',
+      result3: '',
+      result4: '',
+      // 單一產品
+      productName: '蛋餅',
+      productPrice: 30,
+      productVegan: false,
+      // 單一產品
+      product: {
+        name: '蛋餅',
+        price: 30,
+        vegan: false
+      },
+      products: [
+        {
+          name: '蛋餅',
+          price: 30,
+          vegan: false
+        },
+        {
+          name: '飯糰',
+          price: 35,
+          vegan: false
+        },
+        {
+          name: '小籠包',
+          price: 60,
+          vegan: false
+        },
+        {
+          name: '蘿蔔糕',
+          price: 30,
+          vegan: true
+        },
+      ],
+      carts: [],
+      sum: 0,
+    }
+  },
+  computed: {
+    result2() {
+      return `媽媽買了 ${this.productName}，總共花費 ${this.productPrice} 元，另外這 ${ this.productVegan ? '是' : '不是'} 素食的`
+    }
+  },
+  watch: {
+    tempName(newValue, oldValue) {
+      if (newValue.length >= 10) {
+        this.result = `文字長度為 ${newValue.length} 個字，將儲存至變數中`;
+        this.name = this.tempName;
+      } else {
+        this.result = `輸入的文字僅有 ${newValue.length} 個字，上一次有 ${oldValue.length} 個字`;
+      }
+    },
+    productName() {
+      this.result3 = `媽媽買了 ${this.productName}，總共花費 ${this.productPrice} 元，另外這 ${ this.productVegan ? '是' : '不是'} 素食的`
+    },
+    productVegan() {
+      this.result3 = `媽媽買了 ${this.productName}，總共花費 ${this.productPrice} 元，另外這 ${ this.productVegan ? '是' : '不是'} 素食的`
+    },
+    productPrice() {
+      this.result3 = `媽媽買了 ${this.productName}，總共花費 ${this.productPrice} 元，另外這 ${ this.productVegan ? '是' : '不是'} 素食的`
+    },
+    // 深層監聽
+    product: {
+      handler(val, oldVal) {
+        console.log(val)
+        this.result4 = `媽媽買了 ${this.product.name}，總共花費 ${this.product.price} 元，另外這 ${ this.product.vegan ? '是' : '不是'} 素食的`
+      },
+      deep: true
+    },
+    // [product.price]() {
+    //   this.result3 = `媽媽買了 ${this.product.name}，總共花費 ${this.product.price} 元，另外這 ${ this.product.vegan ? '是' : '不是'} 素食的`
+    // },
+    // [product.vegan]() {
+    //   this.result3 = `媽媽買了 ${this.product.name}，總共花費 ${this.product.price} 元，另外這 ${ this.product.vegan ? '是' : '不是'} 素食的`
+    // },
+  },
+  methods: {
+    addToCart(product) {
+      this.carts.push(product)
+      this.calculate()
+    },
+    calculate() {
+      // let total = 0;
+      // this.carts.forEach(item => {
+      //   total += item.price;
+      // });
+      // this.sum = total;
+
+      // 縮寫
+      this.sum = this.carts.reduce((curr, next) => curr + next.price , 0);
+    },
+    convertToAmount(price) {
+      return `NT$ ${price}`
+    }
+  },
+  created() {
+    console.log(this);
+  }
+};
+Vue.createApp(App).mount('#app');
+</script>
+
