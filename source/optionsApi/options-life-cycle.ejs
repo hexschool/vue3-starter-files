@@ -1,0 +1,82 @@
+---
+title: 生命週期
+layout: ./source/_layout.ejs
+current: options-life-cycle
+menu: optionsApi
+engine: ejs
+---
+<div id="app">
+
+  <h3>Vue 元件生命週期展示</h3>
+  <button @click="isShowing = !isShowing" class="btn btn-primary">
+    <span v-if="isShowing">隱藏元件</span>
+    <span v-else>顯示元件</span>
+  </button>
+  <hr>
+  <child v-if="isShowing"></child>
+
+  <p>講解事項：</p>
+  <ul>
+    <li>Vue 都是元件，元件的生命週期</li>
+    <li>生命週期流程</li>
+    <li>v-if 與 v-show 的差異</li>
+    <li>使用 Keep Alive 維持生命週期</li>
+  </ul>
+
+</div>
+
+<script type="text/x-template" id="childarea">
+  <div>
+    <h4>{{ text }}</h4>
+    <input type="text" class="form-control" v-model="text">
+  </div>
+</script>
+
+<script>
+const child = {
+  template: '#childarea',
+  data: function () {
+    return {
+      text: 'Vue data 資料狀態'
+    }
+  },
+  beforeCreate() {
+    console.log(`beforeCreate! ${this.text}`);
+  },
+  created() {
+    console.log(`created! ${this.text}`);
+    alert(`created! ${this.text}`);
+  },
+  beforeMount() {
+    alert(`beforeMount! ${this.text}`);
+  },
+  mounted() {
+    alert(`mounted! ${this.text}`);
+  },
+  updated () {
+    console.log(`updated! ${this.text}`);
+  },
+  activated () {
+    alert(`activated! ${this.text}`);
+  },
+  deactivated () {
+    alert(`deactivated! ${this.text}`);
+  },
+  beforeUnmount() {
+    console.log(`beforeUnmount! ${this.text}`);
+  },
+  unmounted() {
+    console.log(`unmounted! ${this.text}`);
+  }
+};
+const App = {
+  data() {
+    return {
+      isShowing: false
+    }
+  }
+};
+Vue.createApp(App).component('child', child)
+  .mount('#app');
+</script>
+

@@ -24,6 +24,15 @@ engine: ejs
 
   <h3>Computed Getter, Setter</h3>
   sum 的值：{{ sum }}
+
+  <h3>Computed 常見技巧 - 搜尋</h3>
+  <input type="search" v-model="search">
+  <ul>
+    <li v-for="item in filterProducts">
+      {{ item.name }} / {{ item.price }}
+    </li>
+  </ul>
+
 </div>
 
 <script>
@@ -31,6 +40,7 @@ const App = {
   data() {
     return {
       num: 10,
+      search: '',
       products: [
         {
           name: '蛋餅',
@@ -65,6 +75,11 @@ const App = {
       set(val) {
         this.sum = val;
       }
+    },
+    filterProducts() {
+      return this.products.filter(item => {
+        return item.name.match(this.search);
+      })
     }
   },
   methods: {
