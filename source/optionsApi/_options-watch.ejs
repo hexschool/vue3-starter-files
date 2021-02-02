@@ -18,7 +18,7 @@ engine: ejs
   <h5>Watch</h5>
   <ul>
     <li>監聽單一 “變數” 觸發事件</li>
-    <li>該函式可同時操作多個變數</li>
+    <li>該函式可同時操作多個變數或複雜的事件</li>
   </ul>
 
   <h5>Computed</h5>
@@ -30,8 +30,8 @@ engine: ejs
   <label for="productName">商品名稱</label><input type="text" v-model="productName"><br>
   <label for="productPrice">商品價格</label><input type="number" v-model.number="productPrice"><br>
   <label><input type="checkbox"  v-model="productVegan"> 素食</label>
-  <p>Computed result2: {{ result2 }}</p>
-  <p>Watch result3: {{ result3 }}</p>
+  <p>result2: {{ result2 }}</p>
+  <p>result3: {{ result3 }}</p>
 
   <h3>watch 深層監聽</h3>
   <label for="productName">商品名稱</label><input type="text" v-model="product.name"><br>
@@ -88,14 +88,58 @@ const App = {
   },
   computed: {
     result2() {
-      
+      return `媽媽買了 ${this.productName}，總共花費 ${this.productPrice} 元，另外這 ${ this.productVegan ? '是' : '不是'} 素食的`
     }
   },
-  // 保留文字：
-  // `文字長度為 ${n.length} 個字，將儲存至變數中`
-  // `輸入的文字僅有 ${n.length} 個字，上一次有 ${o.length} 個字`
-  // `媽媽買了 ${this.productName}，總共花費 ${this.productPrice} 元，另外這 ${this.productVegan? '是' : '不是'} 素食的`
+  watch: {
+    tempName(newValue, oldValue) {
+      if (newValue.length >= 10) {
+        this.result = `文字長度為 ${newValue.length} 個字，將儲存至變數中`;
+        this.name = this.tempName;
+      } else {
+        this.result = `輸入的文字僅有 ${newValue.length} 個字，上一次有 ${oldValue.length} 個字`;
+      }
+    },
+    productName() {
+      this.result3 = `媽媽買了 ${this.productName}，總共花費 ${this.productPrice} 元，另外這 ${ this.productVegan ? '是' : '不是'} 素食的`
+    },
+    productVegan() {
+      this.result3 = `媽媽買了 ${this.productName}，總共花費 ${this.productPrice} 元，另外這 ${ this.productVegan ? '是' : '不是'} 素食的`
+    },
+    productPrice() {
+      this.result3 = `媽媽買了 ${this.productName}，總共花費 ${this.productPrice} 元，另外這 ${ this.productVegan ? '是' : '不是'} 素食的`
+    },
+    // 深層監聽
+    product: {
+      handler(val, oldVal) {
+        console.log(val)
+        this.result4 = `媽媽買了 ${this.product.name}，總共花費 ${this.product.price} 元，另外這 ${ this.product.vegan ? '是' : '不是'} 素食的`
+      },
+      deep: true
+    },
+  },
+  methods: {
+    addToCart(product) {
+      this.carts.push(product)
+      this.calculate()
+    },
+    calculate() {
+      // let total = 0;
+      // this.carts.forEach(item => {
+      //   total += item.price;
+      // });
+      // this.sum = total;
 
+      // 縮寫
+      this.sum = this.carts.reduce((curr, next) => curr + next.price , 0);
+    },
+    convertToAmount(price) {
+      return `NT$ ${price}`
+    }
+  },
+  created() {
+    console.log(this);
+  }
 };
 Vue.createApp(App).mount('#app');
 </script>

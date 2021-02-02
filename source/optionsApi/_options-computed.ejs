@@ -20,7 +20,8 @@ engine: ejs
   <ul>
     <li v-for="item in carts">{{ item.name }}</li>
   </ul>
-  total 的值：<br>
+  total 的值：{{ total }}<br>
+
 
   <h3>Computed 常見技巧 - 搜尋</h3>
   <input type="search" v-model="search">
@@ -31,7 +32,6 @@ engine: ejs
   </ul>
 
   <h3>Computed Getter, Setter</h3>
-  sum 的值：
   <input type="number" v-model.number="num">
   <button type="button" @click="total = num">更新</button>
   total 的值：{{ total }}<br>
@@ -70,9 +70,28 @@ const App = {
       sum: 0,
     }
   },
+  computed: {
+    // total() {
+    //   return this.carts.reduce((curr, next) => curr + next.price , 0);
+    // },
+    total: {
+      get() {
+        return this.sum || this.carts.reduce((curr, next) => curr + next.price , 0)
+      },
+      set(val) {
+        console.log(val)
+        this.sum = val;
+      }
+    },
+    filterProducts() {
+      return this.products.filter(item => {
+        return item.name.match(this.search);
+      })
+    }
+  },
   methods: {
     addToCart(product) {
-      this.carts.push(product)
+      this.carts.push(product);
     },
   },
   created() {
