@@ -1,0 +1,68 @@
+---
+title: 元件插巢
+layout: ./source/_layout.ejs
+current: component_mitt
+menu: components
+engine: ejs
+---
+
+<div id="app">
+  <h3>跨元件溝通</h3>
+  <p>將元件內的變數取出使用，稱為 slot prop</p>
+  <card-on></card-on>
+
+  <card-emit></card-emit>
+
+</div>
+
+<script type="module">
+  import 'https://unpkg.com/mitt/dist/mitt.umd.js'; // mitt
+  const emitter = mitt(); // 初始化
+
+  const app = Vue.createApp({
+  });
+
+  app.component('card-emit', {
+    data() {
+      return {
+        product: {
+          name: '蛋餅',
+          price: 30,
+          vegan: false
+        },
+      }
+    },
+    methods: {
+      sendData() {
+        emitter.emit('product', this.product)
+      }
+    },
+    template: `<div class="card" style="width: 18rem;">
+      <div class="card-body" >
+        <button @click="sendData">送出</button>
+      </div>
+    </div>`
+  });
+
+  app.component('card-on', {
+    data() {
+      return {
+        item: {}
+      }
+    },
+    created() {
+      emitter.on('product', (product) => {
+        console.log(product)
+        this.item = product;
+      });
+    },
+    template: `<div class="card" style="width: 18rem;">
+      <div class="card-body">
+        {{ item }}
+      </div>
+    </div>`
+  });
+
+
+  app.mount('#app');
+</script>

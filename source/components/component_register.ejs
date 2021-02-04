@@ -1,0 +1,90 @@
+---
+title: 元件註冊
+layout: ./source/_layout.ejs
+current: component_register
+menu: components
+engine: ejs
+---
+
+<div id="app">
+  <h3>元件基本範例及結構</h3>
+  <p>元件使用的基本要點</p>
+  <ul>
+    <li>元件需要在 creatApp 後，mount 前進行定義</li>
+    <li>元件需指定一個名稱</li>
+    <li>元件結構與最外層的根元件結構無異（除了增加 Template 的片段）</li>
+    <li>元件另有 prop, emits 等資料傳遞及事件傳遞</li>
+  </ul>
+  <alert :outer-text="text"></alert>
+
+  <h3>不同元件的註冊方式</h3>
+
+  <h4>
+    全域註冊
+  </h4>
+  <p>此 createApp 下，任何子元件都可運用，在中小型專案、一般頁面開發很方便</p>
+  <alert2></alert2>
+
+  <h4>區域註冊</h4>
+  <p>限制在特定元件下才可使用，在 Vue Cli 中很常使用此方法（便於管理）</p>
+  <alert3></alert3>
+
+  <h4>模組化</h4>
+  <p>同屬於區域註冊，Vue Cli 中的實戰運用技巧</p>
+  <alert4></alert4>
+</div>
+
+<script type="module">
+  import alert4 from './alert-component.js';
+
+  // 區域註冊
+  const alert3 = {
+    data() {
+      return {
+        text: '這是元件 3'
+      };
+    },
+    template: `<div class="alert alert-primary" role="alert">
+      {{ text }}
+    </div>`
+  }
+
+  // 注意，這段起手式與先前不同
+  const app = Vue.createApp({
+    data() {
+      return {
+        text: '外部元件文字',
+      };
+    },
+    components: {
+      // 區域註冊
+      alert3,
+      alert4
+    }
+  }).component('alert', {
+    props: ['outerText'],
+    data() {
+      return {
+        text: '內部文字'
+      };
+    },
+    template: `<div class="alert alert-primary" role="alert">
+      {{ text }}, {{ outerText }}
+    </div>`
+  });
+
+  // 全域註冊
+  app.component('alert2', {
+    data() {
+      return {
+        text: '這是元件 2'
+      };
+    },
+    template: `<div class="alert alert-primary" role="alert">
+      {{ text }}
+    </div>`
+  });
+
+
+  app.mount('#app');
+</script>

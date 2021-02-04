@@ -1,0 +1,86 @@
+---
+title: Emit 傳遞事件
+layout: ./source/_layout.ejs
+current: component_emits
+menu: components
+engine: ejs
+---
+
+<div id="app">
+  <h3>Emit 處發外部事件</h3>
+  {{ num }}
+  <button-counter
+    @add="addNum"
+  ></button-counter>
+
+  <h3>傳遞資料狀態</h3>
+  內部傳來的文字：{{ text }}<br>
+  <button-text
+    @emit-text="getData"
+  ></button-text>
+
+  <h3>命名注意</h3>
+  <p>駝峰的大寫文字，可以改為 `-` 進行串接</p>
+  內部傳來的文字：{{ text }}<br>
+  <button-text
+    @emit-text="getData"
+  ></button-text>
+</div>
+
+<script type="module">
+  // 區域註冊
+  const app = Vue.createApp({
+    data() {
+      return {
+        num: 0,
+        text: ''
+      };
+    },
+    methods: {
+      addNum() {
+        console.log('addNum');
+        this.num++
+      },
+      getData(text) {
+        console.log('getData');
+        this.text = text;
+      }
+    }
+  });
+
+  app.component('button-counter', {
+    methods: {
+      emit() {
+        console.log('emit');
+        this.$emit('add');
+      }
+    },
+    template: `<button type="button" @click="emit">add</button>`
+  });
+
+  app.component('button-text', {
+    data() {
+      return {
+        text: '內部資料',
+      }
+    },
+    methods: {
+      emit() {
+        this.$emit('emit-text', this.text);
+      }
+    },
+    template: `<button type="button" @click="emit">emit data</button>`
+  });
+
+  app.component('button-named', {
+    methods: {
+      emit() {
+        this.$emit('emitText', this.text);
+      }
+    },
+    template: `<button type="button" @click="emit">emit data</button>`
+  })
+
+
+  app.mount('#app');
+</script>

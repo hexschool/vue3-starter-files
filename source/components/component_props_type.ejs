@@ -1,0 +1,94 @@
+---
+title: Props 型別
+layout: ./source/_layout.ejs
+current: component_props_type
+menu: components
+engine: ejs
+---
+
+<div id="app">
+  <h3>Props 型別技巧</h3>
+  <input type="number" v-model="money">
+
+  <props-type money="300"></props-type>
+  <props-type :money="money"></props-type>
+
+
+  <h3>定義 Props 型別驗證</h3>
+  <p>實戰中不太會用到全部技巧，常用的有：</p>
+  <ul>
+    <li>型別驗證</li>
+    <li>預設值</li>
+    <li>自訂驗證</li>
+  </ul>
+  <props-validation
+  :prop-a="fun"
+  prop-c="required"
+  :prop-f="10000"
+  >
+  </props-validation>
+</div>
+
+<script type="module">
+  // 區域註冊
+  const app = Vue.createApp({
+    data() {
+      return {
+        money: 300,
+        big: 100n,
+        boo: true,
+        fun: () => { return 'a' }
+      };
+    },
+  });
+
+  app.component('props-type', {
+    props: ['money'],
+    template: `<div>value: {{money}}, typeof:{{ typeof money }}</div>`
+  });
+
+  function customFactory() {
+    return {
+      money: 300
+    }
+  }
+
+  app.component('props-validation', {
+    props: {
+      // 單一型別檢查，可接受的型別 String, Number, Object, Boolean, Function(在 Vue 中可使用 Function 驗證型別)
+      // null, undefined 會直接通過驗證
+      propA: Function,
+
+      // 多個型別檢查
+      propB: [String, Number],
+
+      // 必要值
+      propC: {
+        type: String,
+        required: true,
+      },
+
+      // 預設值
+      propD: {
+        type: Number,
+        default: 300
+      },
+
+      // 自訂函式
+      propE: {
+        type: Object,
+        default: customFactory
+      },
+
+      // 自訂驗證
+      propF: {
+        validator(value) {
+          return value > 1000
+        }
+      },
+    },
+    template: `{{propA}},{{propC}},{{propD}}<br>{{propE}},{{propF}}`
+  })
+
+  app.mount('#app');
+</script>

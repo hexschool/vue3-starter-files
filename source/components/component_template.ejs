@@ -1,0 +1,88 @@
+---
+title: 元件樣板及綁定方式
+layout: ./source/_layout.ejs
+current: component_template
+menu: components
+engine: ejs
+---
+<div id="app">
+  <h3>常見的模板建立方式</h3>
+
+  <h4>template</h4>
+  <alert></alert>
+
+  <h4>x-template</h4>
+  <alert2></alert2>
+
+  <h4>單文件元件</h4>
+  <p>本章節不介紹，在 Vue Cli 課程中將會實作（較為簡單，使用與 x-template 接近）</p>
+
+  <hr>
+  <h3>元件綁定方式</h3>
+  <h4>直接使用 標籤名稱</h4>
+  <alert></alert>
+
+  <h4>搭配 v-for 也是沒問題的</h4>
+  <alert v-for="i in array" :key="i"></alert>
+
+  <h4>使用 is 綁定</h4>
+  <div v-is="'alert'"></div>
+
+  <h4>動態屬性</h4>
+  <input type="text" v-model="componentName">
+
+  <p>任何標籤均可搭配 v-is 進行動態切換</p>
+  <div v-is="componentName"></div>
+
+  <p>在 <code>component</code> 標籤中，可以使用 is 縮寫（由 v2 版轉移過來的功能）</p>
+  <component v-bind:is="componentName"></component>
+
+  <h2>動態標籤實戰技巧</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>標題</th>
+        <th>內文</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-is="'table-row'"></tr>
+    </tbody>
+  </table>
+</div>
+<script type="text/x-template" id="alert-template">
+  <div class="alert alert-primary" role="alert">
+    範例二
+  </div>
+</script>
+
+<script type="module">
+  // 注意，這段起手式與先前不同
+  const app = Vue.createApp({
+    data() {
+      return {
+        array: [1, 2, 3],
+        componentName: 'alert'
+      };
+    },
+  })
+
+  app.component('alert', {
+    template: `<div class="alert alert-primary" role="alert">
+      範例ㄧ
+    </div>`,
+  });
+
+  app.component('alert2', {
+    template: '#alert-template',
+  })
+
+  app.component('table-row', {
+    template: `<tr>
+      <td>$</td>
+      <td>這是一個 tr 項目</td>
+    </tr>`
+  })
+
+  app.mount('#app');
+</script>

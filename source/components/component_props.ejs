@@ -1,0 +1,51 @@
+---
+title: Props
+layout: ./source/_layout.ejs
+current: component_props
+menu: components
+engine: ejs
+---
+
+<div id="app">
+  <h3>Props 靜態資料</h3>
+  <p>由外部傳入資料至內部</p>
+  <photo :url="'https://images.unsplash.com/photo-1605784401368-5af1d9d6c4dc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80'"></photo>
+
+  <h3>動態資源</h3>
+  <p>技巧：前內、後外</p>
+  <photo :url="imgUrl"></photo>
+
+  <h3>單向數據流</h3>
+  <photo2 :url="imgUrl"></photo2>
+
+  <h3>命名限制</h3>
+  <photo3 :super-url="imgUrl"></photo3>
+</div>
+
+<script type="module">
+  // 區域註冊
+  const app = Vue.createApp({
+    data() {
+      return {
+        imgUrl: 'https://images.unsplash.com/photo-1605784401368-5af1d9d6c4dc?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80',
+      };
+    },
+  });
+
+  app.component('photo', {
+    props: ['url'],
+    template: `<img :src="url" class="img-thumbnail" alt>`
+  });
+
+  app.component('photo2', {
+    props: ['url'],
+    template: `<img :src="url" class="img-thumbnail" alt><br>
+    <input type="text" v-model="url"> {{ url }}`
+  })
+
+  app.component('photo3', {
+    props: ['superUrl'],
+    template: `<img :src="superUrl" class="img-thumbnail" alt>`
+  })
+  app.mount('#app');
+</script>

@@ -1,0 +1,80 @@
+---
+title: Emits API
+layout: ./source/_layout.ejs
+current: component_emits_api
+menu: components
+engine: ejs
+---
+
+<div id="app">
+  <h3>Emit API</h3>
+  <p>使用 emits API 取代 methods，優點：</p>
+  <ul>
+    <li>便於使用</li>
+    <li>管理方便（不與 methods 混用）</li>
+  </ul>
+
+  <h4>陣列方法</h4>
+  {{ num }}
+  <button-counter
+    @add="addNum"
+  ></button-counter>
+
+  <h4>物件方法（驗證使用）</h4>
+  <p>注意：emits 與 methods 不同，無法直接調用 this（因此可直接使用箭頭函式）</p>
+  <input-submit @emit-num="getData"></input-submit>
+</div>
+
+<script type="module">
+  // 區域註冊
+  const app = Vue.createApp({
+    data() {
+      return {
+        num: 0,
+      };
+    },
+    methods: {
+      addNum() {
+        console.log('addNum');
+        this.num++
+      },
+      getData(num) {
+        console.log('getData', num);
+        this.num = num;
+      }
+    }
+  });
+
+  app.component('button-counter', {
+    emits: ['add'],
+    template: `<button type="button" @click="$emit('add')">add</button>`,
+    created() {
+      this.$emit('add')
+    }
+  });
+
+  app.component('input-submit', {
+    data() {
+      return { num: 0 }
+    },
+    emits: {
+      emitNum: payload => {
+        if (payload > 100) {
+          return true
+        } else {
+          console.warn(`Invalid submit event payload!`)
+          return false
+        }
+      }
+    },
+    template: `<div>
+      <input type="number" v-model.number="num">
+      <button type="button" @click="$emit('emitNum', num)">送出</button>
+    </div>`
+  })
+
+
+
+
+  app.mount('#app');
+</script>
