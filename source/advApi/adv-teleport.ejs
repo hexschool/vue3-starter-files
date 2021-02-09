@@ -1,0 +1,62 @@
+---
+title: Teleport
+layout: ./source/_layout.ejs
+current: adv-teleport
+menu: advApi
+engine: ejs
+---
+
+<div id="app">
+  <div id="target"></div>
+
+  <h3>Teleport 自訂義元件位置</h3>
+  <card></card>
+
+  <h3>使用限制（錯誤情境）</h3>
+<!--  <card2></card2>-->
+
+  <h3>實用技巧（取代標題、多個）</h3>
+  <new-title></new-title>
+</div>
+
+<script>
+const app = Vue.createApp({
+})
+
+  app.component('card', {
+    data() {
+      return {
+        title: '文件標題',
+        content: '文件內文',
+        toggle: false
+      }
+    },
+    template: `
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{ title }}</h5>
+          <p class="card-text">{{ content }}</p>
+          <button type="button" @click="toggle = !toggle">切換元素顯示</button>
+        </div>
+      </div>
+
+      <teleport to="#target">
+        <div v-if="toggle" class="alert alert-danger">被招喚的元素</div>
+      </teleport>
+    `,
+    props: ['item']
+  });
+
+  app.component('card2', {
+    template: `<teleport to=".col-md-3">
+      <div v-if="toggle" class="alert alert-danger">被招喚的元素</div>
+    </teleport>`
+  })
+
+  app.component('new-title', {
+    template: `<teleport to="title"> - 新增的標題片段</teleport>
+    <teleport to="h1"> - 新增的文字片段</teleport>`
+  })
+
+  app.mount('#app');
+</script>

@@ -13,23 +13,23 @@ engine: ejs
     <li>定義內層的 $emit 觸發方法</li>
     <li>使用 v-on 的方式觸發外層方法（口訣：前內、後外）</li>
   </ul>
-  {{ num }}
+    {{ num }}
   <button-counter
-
+    @add="addNum"
   ></button-counter>
 
   <h3>傳遞資料狀態</h3>
   內部傳來的文字：{{ text }}<br>
   <button-text
-
+    @emit-text="getData"
   ></button-text>
 
   <h3>命名注意</h3>
   <p>駝峰的大寫文字，可以改為 `-` 進行串接</p>
   內部傳來的文字：{{ text }}<br>
-  <button-named
+  <button-text
     @emit-text="getData"
-  ></button-named>
+  ></button-text>
 </div>
 
 <script type="module">
@@ -42,22 +42,25 @@ engine: ejs
       };
     },
     methods: {
-      // addNum() {
-      //   console.log('addNum');
-      //   this.num++
-      // },
-      // getData(text) {
-      //   console.log('getData', text);
-      //   this.text = text;
-      // }
+      addNum() {
+        console.log('addNum');
+        this.num++
+      },
+      getData(text) {
+        console.log('getData');
+        this.text = text;
+      }
     }
   });
 
   app.component('button-counter', {
     methods: {
-
+      emit() {
+        console.log('emit');
+        this.$emit('add');
+      }
     },
-    template: `<button type="button">add</button>`
+    template: `<button type="button" @click="emit">add</button>`
   });
 
   app.component('button-text', {
@@ -67,15 +70,17 @@ engine: ejs
       }
     },
     methods: {
-    },
-    template: `<button type="button">emit data</button>`
+      emit() {
+        this.$emit('emit-text', this.text);
+      }
+    },component_template
+    template: `<button type="button" @click="emit">emit data</button>`
   });
 
   app.component('button-named', {
     methods: {
       emit() {
-        console.log('emit')
-        this.$emit('emitText', '內部文字');
+        this.$emit('emitText', this.text);
       }
     },
     template: `<button type="button" @click="emit">emit data</button>`

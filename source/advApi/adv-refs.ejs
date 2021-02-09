@@ -1,0 +1,84 @@
+---
+title: Refs
+layout: ./source/_layout.ejs
+current: adv-refs
+menu: advApi
+engine: ejs
+---
+
+<div id="app">
+  <h3>使用 ref 定義元素</h3>
+  <input type="text" ref="inputDom">
+
+  <h3>使用 ref 取得元件內的資訊</h3>
+  <button type="button" @click="getComponentInfo">取得元件資訊</button>
+  <card ref="card"></card>
+
+  <h3>進階，使用 ref 搭配 Bootstrap</h3>
+  <button @click="openModal">開啟 Bootstrap Modal</button>
+  <div class="modal" tabindex="-1" ref="modal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Modal body text goes here.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- 另外載入 Bootstrap CDN -->
+<script>
+const app = Vue.createApp({
+  data() {
+    return {
+      bsModal: ''
+    }
+  },
+  methods: {
+    getComponentInfo() {
+      console.log(this.$refs.card);
+      this.$refs.card.title = '被更新的元件標題';
+    },
+    openModal() {
+      this.bsModal.show();
+    }
+  },
+  mounted() {
+    console.log(this.$refs, this.$refs.inputDom);
+    // 可以使用任何的原生 JS 進行操作
+    this.$refs.inputDom.focus();
+
+    const modal = this.$refs.modal;
+    console.log(modal)
+    this.bsModal = new bootstrap.Modal(modal);
+  }
+})
+
+  app.component('card', {
+    data() {
+      return {
+        title: '文件標題',
+        content: '文件內文'
+      }
+    },
+    template: `
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{ title }}</h5>
+          <p class="card-text">{{ content }}</p>
+        </div>
+      </div>
+    `,
+    props: ['item']
+  }).mount('#app');
+</script>

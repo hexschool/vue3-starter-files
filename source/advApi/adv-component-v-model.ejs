@@ -1,0 +1,58 @@
+---
+title: 製作包含 v-model 的元件
+layout: ./source/_layout.ejs
+current: adv-component-v-model
+menu: advApi
+engine: ejs
+---
+
+<div id="app">
+  <h2>自訂義 input 元件（update:modelValue）</h2>
+  <p>參考說明：https://vue3js.cn/docs/zh/guide/component-custom-events.html#v-model-%E5%8F%82%E6%95%B0</p>
+  {{ name }}
+  <custom-input v-model:text="name"></custom-input>
+
+  <hr>
+  <h2>多個 v-model</h2>
+  {{ text }} {{ text2 }}
+  <custom-input2 v-model:t1="text" v-model:t2="text2"></custom-input2>
+</div>
+
+<script>
+const app = Vue.createApp({
+  data() {
+    return {
+      name: '小明',
+
+      text: '這是文字片段 1',
+      text2: '這是文字片段 2'
+    }
+  }
+});
+
+// $emit('update:text', $event.target.value) 搭配 props，可以將更新後的值寫回 v-model 內
+app.component('custom-input', {
+  props: ['text'],
+  template: `<input type="text"
+  :value="text"
+  @input="$emit('update:text', $event.target.value)"
+  class="form-control">`
+});
+
+app.component('custom-input2', {
+  props: ['t1', 't2'],
+  template: `
+<input type="text"
+  :value="t1"
+  @input="$emit('update:t1', $event.target.value)"
+  class="form-control">
+
+<input type="text"
+  :value="t2"
+  @input="$emit('update:t2', $event.target.value)"
+  class="form-control">
+`
+})
+
+  app.mount('#app');
+</script>

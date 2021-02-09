@@ -1,0 +1,73 @@
+---
+title: Extend 擴展
+layout: ./source/_layout.ejs
+current: adv-extend
+menu: advApi
+engine: ejs
+---
+
+<div id="app">
+  <h2>單一擴展</h2>
+<!--  <card></card>-->
+
+  <h2>權重</h2>
+  <p>元件屬性 > mixins > extend</p>
+  <card2></card2>
+
+
+  <p>重點：</p>
+  <ul>
+    <li>擴展為單一擴展</li>
+    <li>生命週期可以與 mixins 重複觸發</li>
+    <li>同名的變數、方法則會依據權重決定</li>
+  </ul>
+</div>
+
+<script>
+const extendComponent1 = {
+  data() {
+    return {
+      name: '擴展的元件'
+    }
+  },
+  created() {
+    console.log('擴展的元件生命週期');
+  }
+};
+const mixinComponent = {
+  data() {
+    return {
+      name: '混合的元件'
+    }
+  },
+  created() {
+    console.log('混合的元件生命週期');
+  }
+};
+
+
+const app = Vue.createApp({});
+
+  app.component('card', {
+    template: `<div class="card">
+      <div class="card-body">{{ name }}</div>
+    </div>`,
+    extends: extendComponent1,
+    created() {
+      console.log('card 的元件生命週期')
+    }
+  });
+
+app.component('card2', {
+  template: `<div class="card">
+      <div class="card-body">{{ name }}</div>
+    </div>`,
+  mixins: [mixinComponent],
+  extends: extendComponent1,
+  created() {
+    console.log('card 的元件生命週期')
+  }
+});
+
+  app.mount('#app');
+</script>

@@ -12,15 +12,13 @@ engine: ejs
   <card-on></card-on>
 
   <card-emit></card-emit>
-
 </div>
 
 <script type="module">
   import 'https://unpkg.com/mitt/dist/mitt.umd.js'; // mitt
   const emitter = mitt(); // 初始化
 
-  const app = Vue.createApp({
-  });
+  const app = Vue.createApp({});
 
   app.component('card-emit', {
     data() {

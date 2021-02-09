@@ -1,0 +1,79 @@
+---
+title: 自訂義指令
+layout: ./source/_layout.ejs
+current: adv-directive
+menu: advApi
+engine: ejs
+---
+
+<div id="app">
+  <h2>自訂義指令</h2>
+
+  <input type="email" v-model="text" v-validator="'form-control'">
+
+</div>
+<script type="module">
+const app = Vue.createApp({
+  data() {
+    return {
+      text: '',
+    }
+  },
+});
+
+app.directive('validator', {
+  // directive 生命週期
+  mounted(el, binding) {
+    // 將外部的值改為
+    el.className = binding.value
+    el.focus();
+  },
+  updated: function(el, binding, vnode) {
+    // el 元素本體
+    // binding 綁定的資源狀態
+    // vnode 虛擬 DOM 節點
+    console.log('update', el, binding, vnode);
+    const className = binding.value;
+
+    // 尋找當前的 model 名稱（取得 key 值，並帶入第一個）
+    const currentModel = Object.keys(binding.instance)[0];
+
+    // 從當前 Model 取值
+    const value = binding.instance[currentModel];
+    console.log(currentModel, value)
+
+    // Email validate
+    const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+
+    if (!re.test(value)) {
+      el.className = `${className} is-invalid`
+    } else {
+      el.className = `${className} is-valid`
+    }
+  },
+})
+
+app.mount('#app');
+</script>
+
+<script>
+// ESM 版本的差異（需要 Webpack）
+// import { Field, Form, ErrorMessage } from 'vee-validate';
+//
+// export default {
+//   components: {
+//     Field,
+//     Form,
+//     ErrorMessage,
+//   },
+//   methods: {
+//     isRequired(value) {
+//       if (value && value.trim()) {
+//         return true;
+//       }
+//
+//       return 'This is required';
+//     },
+//   },
+// };
+</script>

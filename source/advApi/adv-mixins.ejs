@@ -1,0 +1,57 @@
+---
+title: Mixins 混合
+layout: ./source/_layout.ejs
+current: adv-mixins
+menu: advApi
+engine: ejs
+---
+
+<div id="app">
+  <h2>單一混合、多個混合</h2>
+  <card></card>
+
+  <p>重點：</p>
+  <ul>
+    <li>可以重複混合</li>
+    <li>生命週期可以重複觸發</li>
+    <li>同名的變數、方法則會被後者覆蓋</li>
+  </ul>
+</div>
+
+<script>
+const mixComponent1 = {
+  data() {
+    return {
+      name: '混合的元件'
+    }
+  },
+  created() {
+    console.log('混合的元件生命週期');
+  }
+};
+const mixComponent2 = {
+  data() {
+    return {
+      name: '混合的元件 2'
+    }
+  },
+  created() {
+    console.log('混合的元件生命週期 2');
+  }
+};
+
+
+const app = Vue.createApp({});
+
+  app.component('card', {
+    template: `<div class="card">
+      <div class="card-body">{{ name }}</div>
+    </div>`,
+    mixins: [mixComponent1],
+    created() {
+      console.log('card 的元件生命週期')
+    }
+  })
+
+  app.mount('#app');
+</script>

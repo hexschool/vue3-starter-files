@@ -18,7 +18,8 @@ engine: ejs
   <p>實戰中不太會用到全部技巧，常用的有：</p>
   <ul>
     <li>型別驗證</li>
-    <li>預設值、是否必填</li>
+    <li>預設值</li>
+    <li>自訂驗證</li>
   </ul>
   <props-validation
   :prop-a="fun"
@@ -46,6 +47,12 @@ engine: ejs
     template: `<div>value: {{money}}, typeof:{{ typeof money }}</div>`
   });
 
+  function customFactory() {
+    return {
+      money: 300
+    }
+  }
+
   app.component('props-validation', {
     props: {
       // 單一型別檢查，可接受的型別 String, Number, Object, Boolean, Function(在 Vue 中可使用 Function 驗證型別)
@@ -70,11 +77,7 @@ engine: ejs
       // 自訂函式
       propE: {
         type: Object,
-        default() {
-          return {
-            money: 300
-          }
-        }
+        default: customFactory
       },
 
       // 自訂驗證

@@ -1,0 +1,81 @@
+---
+title: 跨元件資訊傳遞 Provide
+layout: ./source/_layout.ejs
+current: adv-provide
+menu: advApi
+engine: ejs
+---
+
+<div id="app">
+  <h2>多層級資訊傳遞</h2>
+  <card></card>
+
+  <p>注意事項：響應式</p>
+
+</div>
+
+<script>
+const userComponent = {
+  inject: ['user'],
+  template: `<div>
+  {{ user.name }}
+  {{ user.uuid }}
+</div>`,
+  created() {
+    console.log(this.user);
+
+    // 如果根元件沒有使用 function return 則不能使用響應式
+    this.user.name = '杰倫'
+  }
+}
+
+const app = Vue.createApp({
+  // provide: {
+  //   user: {
+  //     name: '小明',
+  //     uuid: 78163
+  //   }
+  // },
+  data() {
+    return {
+      user: {
+        name: '小明',
+        uuid: 78163
+      }
+    }
+  },
+  provide() {
+    // 要取得 "data" 內的資訊，Provide 也必須使用 function return
+    return {
+      user: this.user
+    }
+  }
+})
+
+  app.component('card', {
+    data() {
+      return {
+        title: '文件標題',
+        content: '文件內文',
+        toggle: false
+      }
+    },
+    inject: ['user'],
+    components: {
+      userComponent
+    },
+    template: `
+      <div class="card" style="width: 18rem;">
+        <div class="card-header">{{ user.name }}的卡片</div>
+        <div class="card-body">
+          <!-- // 在 JS 環境中，可以使用小駝峰呼叫元件 -->
+          <userComponent></userComponent>
+        </div>
+      </div>
+    `,
+  });
+
+
+
+  app.mount('#app');
+</script>
