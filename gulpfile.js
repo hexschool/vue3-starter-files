@@ -3,7 +3,7 @@ const gulp = require('gulp');
 const $ = require('gulp-load-plugins')(),
   browserSync = require('browser-sync'),
   autoprefixer = require('autoprefixer');
-  
+
 const minimist = require('minimist'); // 用來讀取指令轉成變數
 
 // production || development
@@ -40,7 +40,7 @@ gulp.task('cleanExtra', function () {
 })
 
 gulp.task('copy', function () {
-  return gulp.src(['./source/**/*.js'])
+  return gulp.src(['./source/**/*.js', './source/**/*.json'])
     .pipe($.plumber())
     .pipe(gulp.dest('./public'))
     .pipe(browserSync.reload({

@@ -9,26 +9,25 @@ engine: ejs
 <div id="app">
   <h3>Slot 插巢與插巢預設值</h3>
   <card>
-    <p>這是外部撰寫的文字</p>
   </card>
   <br>
   <card></card>
 
   <h3>具名插巢</h3>
   <card2>
-    <template v-slot:header>我喜歡這張卡片</template>
+    <template >我喜歡這張卡片</template>
     <!--  預設請加入 default  -->
-    <template v-slot:default>這是卡片 2 號</template>
-    <template v-slot:footer>這是卡片腳</template>
+    <template >這是卡片 2 號</template>
+    <template >這是卡片腳</template>
   </card2>
 
 
   <h3>具名插巢縮寫</h3>
   <card2>
-    <template #header>我喜歡這張卡片</template>
+    <template v-slot:header>我喜歡這張卡片</template>
     <!--  預設請加入 default  -->
-    <template #default>這是卡片 2 號</template>
-    <template #footer>這是卡片腳</template>
+    <template v-slot:default>這是卡片 2 號</template>
+    <template v-slot:footer>這是卡片腳</template>
   </card2>
 
 </div>
@@ -42,7 +41,7 @@ engine: ejs
         元件 Header
       </div>
       <div class="card-body">
-        <slot>這段是預設的文字</slot>
+        <p>這段是預設的文字</p>
       </div>
       <div class="card-footer">
         元件 Footer
@@ -53,13 +52,13 @@ engine: ejs
   app.component('card2', {
     template: `<div class="card" style="width: 18rem;">
       <div class="card-header">
-        <slot name="header">元件 Header</slot>
+        <slot>元件 Header</slot>
       </div>
       <div class="card-body">
         <slot>這段是預設的文字</slot>
       </div>
       <div class="card-footer">
-        <slot name="footer">元件 Footer</slot>
+        <slot>元件 Footer</slot>
       </div>
     </div>`
   });

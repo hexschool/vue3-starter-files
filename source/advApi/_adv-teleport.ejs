@@ -10,14 +10,13 @@ engine: ejs
   <div id="target"></div>
 
   <h3>Teleport 自訂義元件位置</h3>
-  結構：<code>&lt;teleport to="{ target }"&gt;</code>
   <card></card>
 
   <h3>使用限制（錯誤情境）</h3>
-  <card2></card2>
+<!--  <card2></card2>-->
 
   <h3>實用技巧（取代標題、多個）</h3>
-<!--  <new-title></new-title>-->
+  <new-title></new-title>
 </div>
 
 <script>
@@ -41,15 +40,17 @@ const app = Vue.createApp({
         </div>
       </div>
 
-      <div v-if="toggle" class="alert alert-danger">被招喚的元素</div>
+      <teleport to="#target">
+        <div v-if="toggle" class="alert alert-danger">被招喚的元素</div>
+      </teleport>
     `,
     props: ['item']
   });
 
   app.component('card2', {
-    template: `
-      <div class="alert alert-danger">被招喚的元素</div>
-    `
+    template: `<teleport to=".col-md-3">
+      <div v-if="toggle" class="alert alert-danger">被招喚的元素</div>
+    </teleport>`
   })
 
   app.component('new-title', {

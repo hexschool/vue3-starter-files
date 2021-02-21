@@ -8,14 +8,13 @@ engine: ejs
 
 <div id="app">
   <h3>使用 ref 定義元素</h3>
-  <input type="text">
+  <input type="text" ref="inputDom">
 
   <h3>使用 ref 取得元件內的資訊</h3>
   <button type="button" @click="getComponentInfo">取得元件資訊</button>
-  <card></card>
+  <card ref="card"></card>
 
   <h3>進階，使用 ref 搭配 Bootstrap</h3>
-  Bootstrap Modal: <a href="https://getbootstrap.com/docs/5.0/components/modal/">https://getbootstrap.com/docs/5.0/components/modal/</a>
   <button @click="openModal">開啟 Bootstrap Modal</button>
   <div class="modal" tabindex="-1" ref="modal">
     <div class="modal-dialog">
@@ -47,14 +46,21 @@ const app = Vue.createApp({
   },
   methods: {
     getComponentInfo() {
-
+      console.log(this.$refs.card);
+      this.$refs.card.title = '被更新的元件標題';
     },
     openModal() {
-
+      this.bsModal.show();
     }
   },
   mounted() {
+    console.log(this.$refs, this.$refs.inputDom);
+    // 可以使用任何的原生 JS 進行操作
+    this.$refs.inputDom.focus();
 
+    const modal = this.$refs.modal;
+    console.log(modal)
+    this.bsModal = new bootstrap.Modal(modal);
   }
 })
 

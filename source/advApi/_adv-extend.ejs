@@ -8,17 +8,17 @@ engine: ejs
 
 <div id="app">
   <h2>單一擴展</h2>
-  <card></card>
+<!--  <card></card>-->
 
-  <h3>權重</h3>
-<!--  <card2></card2>-->
+  <h2>權重</h2>
+  <p>元件屬性 > mixins > extend</p>
+  <card2></card2>
 
 
-  <h3>重點：</h3>
+  <p>重點：</p>
   <ul>
     <li>擴展為單一擴展</li>
     <li>生命週期可以與 mixins 重複觸發</li>
-    <li>權重：元件屬性 > mixins > extend</li>
     <li>同名的變數、方法則會依據權重決定</li>
   </ul>
 </div>
@@ -52,6 +52,7 @@ const app = Vue.createApp({});
     template: `<div class="card">
       <div class="card-body">{{ name }}</div>
     </div>`,
+    extends: extendComponent1,
     created() {
       console.log('card 的元件生命週期')
     }
@@ -61,11 +62,6 @@ const app = Vue.createApp({});
     template: `<div class="card">
         <div class="card-body">{{ name }}</div>
       </div>`,
-    // data() {
-    //   return {
-    //     name: '元件資料狀態',
-    //   }
-    // },
     mixins: [mixinComponent],
     extends: extendComponent1,
     created() {

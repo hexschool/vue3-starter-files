@@ -1,0 +1,89 @@
+---
+title: 製作包含 v-model 的元件
+layout: ./source/_layout.ejs
+current: adv-use-plugin
+menu: advApi
+engine: ejs
+---
+
+<div id="app">
+  <h2>運用外部套件</h2>
+
+  <p>外部套件匯入方式</p>
+  <ul>
+    <li>使用 CDN 直接載入</li>
+    <li><a href="https://vee-validate.logaretm.com/v4/guide/components/validation#field-level-validation">元件的形式載入</a>
+        或 <a href="https://www.npmjs.com/package/vue-axios">app.use()</a> 啟用。（另有指令等各種 Vue 的語法形式）</li>
+    <li>ESM（大多會需要 Webpack 環境）</li>
+  </ul>
+
+  <h3>使用外部套件注意事項：</h3>
+  <ul>
+    <li>需多注意可搭配的版本號</li>
+    <li>更新頻率</li>
+    <li>使用人數</li>
+  </ul>
+
+  <h3>範例：載入 VeeValidate 驗證套件</h3>
+  <v-form @submit="onSubmit" v-slot="{errors}">
+    {{ errors }}
+
+    <v-field name="name" type="text" placeholder="Who are you" :rules="isRequired"></v-field>
+    <error-message name="name"></error-message>
+
+    <button>Submit</button>
+  </v-form>
+
+  <p>比對與 ESM 版本上的差異</p>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/4.1.17/vee-validate.min.js"></script>
+<script type="module">
+// VeeValidate CDN 版本
+const app = Vue.createApp({
+  components: {
+    // Components were renamed to avoid conflicts of HTML form element without a vue compiler
+    VForm: VeeValidate.Form,
+    VField: VeeValidate.Field,
+    ErrorMessage: VeeValidate.ErrorMessage,
+  },
+  methods: {
+    isRequired(value) {
+      if (!value) {
+        return 'this field is required';
+      }
+      return true;
+    },
+    onSubmit(values) {
+      console.log(values)
+    }
+  },
+  created() {
+    console.log(this);
+  }
+});
+
+app.mount('#app');
+</script>
+
+<script>
+// ESM 版本的差異（需要 Webpack）
+// import { Field, Form, ErrorMessage } from 'vee-validate';
+//
+// export default {
+//   components: {
+//     Field,
+//     Form,
+//     ErrorMessage,
+//   },
+//   methods: {
+//     isRequired(value) {
+//       if (value && value.trim()) {
+//         return true;
+//       }
+//
+//       return 'This is required';
+//     },
+//   },
+// };
+</script>

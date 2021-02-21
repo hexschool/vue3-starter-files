@@ -8,8 +8,20 @@ engine: ejs
 
 <div id="app">
   <h2>自訂義指令</h2>
+  <h3>用途</h3>
+  <ul>
+    <li>實戰中屬於進階功能，初學可先了解有此功能即可</li>
+    <li>可從延伸套件中看到相關的運用</li>
+    <li>多用於 HTML 上的便利操作，複雜功能還是會搭配元件</li>
+  </ul>
 
-  <input type="email" v-model="text" v-validator="'form-control'">
+  <h3>結構</h3>
+  <ul>
+    <li>v-{自訂義名稱}</li>
+    <li>主要透過生命週期來觸發變動，可參考：<a
+        href="https://vue3js.cn/docs/zh/guide/custom-directive.html#%E5%8A%A8%E6%80%81%E6%8C%87%E4%BB%A4%E5%8F%82%E6%95%B0">https://vue3js.cn/docs/zh/guide/custom-directive.html#%E5%8A%A8%E6%80%81%E6%8C%87%E4%BB%A4%E5%8F%82%E6%95%B0</a></li>
+  </ul>
+  <input type="email" v-model="text">
 
 </div>
 <script type="module">
@@ -21,35 +33,37 @@ const app = Vue.createApp({
   },
 });
 
+// 註冊指令
 app.directive('validator', {
   // directive 生命週期
   mounted(el, binding) {
+    // el.focus();
+
     // 將外部的值改為
-    el.className = binding.value
-    el.focus();
+    // el.className = binding.value
   },
   updated: function(el, binding, vnode) {
     // el 元素本體
     // binding 綁定的資源狀態
     // vnode 虛擬 DOM 節點
     console.log('update', el, binding, vnode);
-    const className = binding.value;
+    // const className = binding.value;
 
     // 尋找當前的 model 名稱（取得 key 值，並帶入第一個）
-    const currentModel = Object.keys(binding.instance)[0];
+    // const currentModel = Object.keys(binding.instance)[0];
 
     // 從當前 Model 取值
-    const value = binding.instance[currentModel];
-    console.log(currentModel, value)
+    // const value = binding.instance[currentModel];
+    // console.log(currentModel, value)
 
     // Email validate
-    const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    // const re = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 
-    if (!re.test(value)) {
-      el.className = `${className} is-invalid`
-    } else {
-      el.className = `${className} is-valid`
-    }
+    // if (!re.test(value)) {
+    //   el.className = `${className} is-invalid`
+    // } else {
+    //   el.className = `${className} is-valid`
+    // }
   },
 })
 

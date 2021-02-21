@@ -1,5 +1,5 @@
 ---
-title: 元件插巢
+title: 元件插巢 Props
 layout: ./source/_layout.ejs
 current: component_slot_props
 menu: components
@@ -10,61 +10,31 @@ engine: ejs
   <h3>插巢 Prop</h3>
   <p>將元件內的變數取出使用，稱為 slot prop</p>
   <card>
-    <template v-slot="slotProps">
-      {{ slotProps }}
+    <template>
+      我想取出元件的值來使用
     </template>
   </card>
   <hr>
-  <h2>傳入、傳出</h2>
-  <card2 :items="products">
-    <template v-slot="slotProps">
-      <li>
-        {{ slotProps.item }}
-      </li>
-    </template>
-  </card2>
-
-  <hr>
   <h2>多個（解構）</h2>
-  <card3 :items="products">
+  {{ product }}
+  <card2 :product="product">
     <template #header>
       買早餐
     </template>
-    <template v-slot="{item, shop = '沒良心早餐'}">
-      <li>
-        {{ item }}
-        {{ shop }}
-      </li>
+    <template #default>
     </template>
-  </card3>
+  </card2>
 </div>
 
 <script type="module">
   const app = Vue.createApp({
     data() {
       return {
-        products: [
-          {
-            name: '蛋餅',
-            price: 30,
-            vegan: false
-          },
-          {
-            name: '飯糰',
-            price: 35,
-            vegan: false
-          },
-          {
-            name: '小籠包',
-            price: 60,
-            vegan: false
-          },
-          {
-            name: '蘿蔔糕',
-            price: 30,
-            vegan: true
-          },
-        ],
+        product: {
+          name: '蛋餅',
+          price: 30,
+          vegan: false
+        }
       }
     },
   });
@@ -87,32 +57,19 @@ engine: ejs
   });
 
   app.component('card2', {
-    props: ['items'],
-    template: `<div class="card" style="width: 18rem;">
-      <div class="card-body" v-for="item in items">
-        <slot :item="item"></slot>
-      </div>
-    </div>`
-  });
-
-  app.component('card3', {
-    props: ['items'],
+    props: ['product'],
     data() {
       return {
-        shop: '超良心早餐'
+        veganName: ''
       }
     },
     created() {
-      this.items.forEach(item =>{
-        item.veganName = item.vegan ? '素食' : '非素食';
-      })
+      console.log()
+      this.veganName = this.product.vegan ? '素食' : '非素食';
     },
     template: `<div class="card" style="width: 18rem;">
-      <div class="card-header">
-        <slot class="card-header" name="header"></slot>
-      </div>
-      <div class="card-body" v-for="item in items">
-        <slot :item="item" :shop="shop"></slot>
+      <div class="card-body" >
+        <slot :product="product" :veganName="veganName"></slot>
       </div>
     </div>`
   })

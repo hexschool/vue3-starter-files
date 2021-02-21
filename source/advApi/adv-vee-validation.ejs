@@ -1,64 +1,88 @@
 ---
-title: 製作包含 v-model 的元件
+title: 表單驗證套件
 layout: ./source/_layout.ejs
-current: adv-use-plugin
+current: adv-vee-validation
 menu: advApi
 engine: ejs
 ---
 
 <div id="app">
-  <h2>運用外部套件</h2>
-
-  <p>外部套件匯入方式</p>
-  <ul>
-    <li>使用 CDN 直接載入</li>
-    <li><a href="https://vee-validate.logaretm.com/v4/guide/components/validation#field-level-validation">元件的形式載入</a>
-        或 <a href="https://www.npmjs.com/package/vue-axios">app.use()</a> 啟用。（另有指令等各種 Vue 的語法形式）</li>
-    <li>ESM（大多會需要 Webpack 環境）</li>
-  </ul>
+  <h2>套用一個現成的流程</h2>
+  <p>參考文件：<a href="https://hackmd.io/FFv0a5cBToOATP7uI5COMQ">https://hackmd.io/FFv0a5cBToOATP7uI5COMQ</a></p>
 
   <h3>範例：載入 VeeValidate 驗證套件</h3>
-  <v-form @submit="onSubmit">
-    <v-field name="name" type="text" placeholder="Who are you" :rules="isRequired"></v-field>
+  <form @submit="onSubmit" >
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input id="email" name="email" type="email" class="form-control"
+               placeholder="請輸入 Email">
+      <span class="invalid-feedback"></span>
+    </div>
 
-    <error-message name="name"></error-message>
+    <div class="mb-3">
+      <label for="name" class="form-label">姓名</label>
+      <input id="name" name="姓名" type="text" class="form-control"
+               placeholder="請輸入姓名">
+      <span class="invalid-feedback"></span>
+    </div>
 
-    <button>Submit</button>
-  </v-form>
-  <p>請比對與 ESM 版本上的差異</p>
+    <div class="mb-3">
+      <label for="phone" class="form-label">電話</label>
+      <input id="phone" name="電話" type="text" class="form-control"
+               placeholder="請輸入電話">
+      <span class="invalid-feedback"></span>
+    </div>
 
-  <h3>使用外部套件注意事項：</h3>
-  <ul>
-    <li>需多注意可搭配的版本號</li>
-    <li>套件使用人數</li>
-  </ul>
+    <div class="mb-3">
+      <label for="region" class="form-label">地區</label>
+      <select id="region" name="地區" class="form-control">
+        <option value="">請選擇地區</option>
+        <option value="台北市">台北市</option>
+        <option value="高雄市">高雄市</option>
+      </select>
+      <span class="invalid-feedback"></span>
+    </div>
+
+    <div class="mb-3">
+      <label for="address" class="form-label">地址</label>
+      <input id="address" name="地址" type="text" class="form-control"
+               placeholder="請輸入地址">
+      <span class="invalid-feedback"></span>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
 
 </div>
-<script src="https://unpkg.com/vee-validate@next"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/4.1.17/vee-validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@vee-validate/i18n@4.1.17/dist/vee-validate-i18n.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@vee-validate/rules@4.1.17/dist/vee-validate-rules.min.js"></script>
 <script type="module">
-// VeeValidate CDN 版本
 const app = Vue.createApp({
-  components: {
-    // Components were renamed to avoid conflicts of HTML form element without a vue compiler
-    VForm: VeeValidate.Form,
-    VField: VeeValidate.Field,
-    ErrorMessage: VeeValidate.ErrorMessage,
+  data() {
+    return {
+      user: {
+        email: '',
+        name: '',
+        address: '',
+        phone: ''
+      }
+    }
   },
   methods: {
-    isRequired(value) {
-      if (!value) {
-        return 'this field is required';
-      }
-      return true;
+    onSubmit() {
+      console.log(this.user);
     },
-    onSubmit(values) {
-      alert(JSON.stringify(values, null ,2));
+    isPhone(value) {
+      const phoneNumber = /^(09)[0-9]{8}$/
+      return phoneNumber.test(value) ? true : '需要正確的電話號碼'
     }
   },
   created() {
     console.log(this);
   }
 });
+
 
 app.mount('#app');
 </script>

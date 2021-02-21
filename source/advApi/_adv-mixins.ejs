@@ -47,6 +47,7 @@ app.component('card', {
   template: `<div class="card">
     <div class="card-body">{{ name }}</div>
   </div>`,
+  mixins: [mixComponent1],
   created() {
     console.log('card 的元件生命週期')
   }
