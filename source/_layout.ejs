@@ -1,13 +1,4 @@
-<!DOCTYPE html>
-<html>
-<head><title><%= title %></title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="images/favicon.ico" rel="shortcut icon">
-  <meta charset="UTF-8">
-  <script src="/javascripts/vendor.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script>
-</head>
-<% var menus = {
+<!DOCTYPE html><html><head><title><%= title %></title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="images/favicon.ico" rel="shortcut icon"><meta charset="UTF-8"><script src="/javascripts/vendor.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script></head><% var menus = {
   es6: [{
     name: '縮寫',
     url: 'shorthand'
@@ -225,28 +216,23 @@
       url: 'adv-vee-validation'
     }
   ]
-}; var description; %>
-<body class="bg-lighter">
-<div class="container my-5">
-  <div class="row">
-    <main class="col post">
-      <!-- 章節標題 -->
-      <div class="mb-4"><h1 class="mt-0 text-muted"><%= title %></h1><small>檔名：<code><%= current %>.html</code></small>
-        <% if (description) { %>
-          <div class="alert bg-light"><%- description %></div>
-        <% } %>
-      </div>
-      <!-- 🔥🔥練習開始🔥🔥 -->
-      <%- contents %>
-      <!-- 🙇🙇練習結束🙇🙇 -->
-    </main>
-    <% if (menu) { %>
-      <aside
-        class="col-md-3"><%- include('partials/menu', {current: current, menus: menus[menu], path: menu}) %></aside>
+}; var description; %><body class="bg-lighter">
+<div class="container main my-5"><div class="row"><main class="col post">
+<!-- 章節標題 --><div class="mb-4"><h1 class="mt-0 text-muted"><%= title %></h1><small>檔名：<code><%= current %>.html</code></small><% if (description) { %>
+  <div class="alert bg-light"><%- description %></div>
+<% } %></div>
+<!-- 🔥🔥練習開始🔥🔥 -->
+<%- contents %>
+<!-- 🙇🙇練習結束🙇🙇 -->
+</main>
+  <% if (menu) { %>
+    <aside
+      class="col-md-3"><%- include('partials/menu', {current: current, menus: menus[menu], path: menu}) %></aside>
     <% } %>
   </div>
 </div>
 <%- include partials/navbar %>
+<%- include partials/footer %>
 <link rel="stylesheet" href="/stylesheets/all.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 </body>

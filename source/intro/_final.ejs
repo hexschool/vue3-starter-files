@@ -9,7 +9,7 @@ engine: ejs
 <div id="app">
   <div class="text-right">
     <button type="button" class="btn btn-dark"
-      @click="isNew = true">新增</button>
+      @click="addItem">新增</button>
   </div>
   <table class="table">
     <thead>
@@ -80,6 +80,10 @@ const App = {
     }
   },
   methods: {
+    addItem() {
+      this.isNew = true;
+      this.temp = {};
+    },
     editItem(item) {
       this.temp = { ...item }
     },
@@ -93,6 +97,7 @@ const App = {
           this.products[i] = this.temp;
         }
       });
+      this.isNew = false;
       this.temp = {};
     }
   },

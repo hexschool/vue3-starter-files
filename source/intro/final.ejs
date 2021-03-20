@@ -84,7 +84,6 @@ const App = {
         this.temp.id = new Date().getTime();
         this.temp.onStock = false;
         this.products.push(this.temp);
-        this.isNew = false;
       } else {
         this.products.forEach((item, i) => {
           if (item.id === this.temp.id) {
