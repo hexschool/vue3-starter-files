@@ -286,8 +286,8 @@ const App = {
       this.reset();
     },
     generateOrder(orders, total) { // 產生訂單
-      const date = new Date().toISOString().split('T');
-      this.checkedOrder.time = `${date[0]} ${date[1].split('.')[0]}`;
+      const date = new Date().toLocaleString();
+      this.checkedOrder.time = date;
       this.checkedOrder.orders = orders;
       this.checkedOrder.total = total;
       this.orderList = [];

@@ -7,26 +7,16 @@ engine: ejs
 ---
 
 <div id="app">
-  <h3>Emit API</h3>
-  <p>使用 emits API 取代 methods，優點：</p>
-  <ul>
-    <li>便於使用</li>
-    <li>管理方便（不與 methods 混用）</li>
-  </ul>
-
-  <h4>陣列方法</h4>
+  <h3>Emits API</h3>
   {{ num }}
-  <button-counter
-    @add="addNum"
-  ></button-counter>
+  <button-counter @add="addNum"></button-counter>
 
-  <h4>物件方法（驗證使用）</h4>
-  <p>注意：emits 與 methods 不同，無法直接調用 this（因此可直接使用箭頭函式）</p>
-  <input-submit @emit-num="getData"></input-submit>
+  <h3>驗證資料內容</h3>
+  <button-counter2 @add="addNum"></button-counter2>
+
 </div>
 
 <script type="module">
-  // 區域註冊
   const app = Vue.createApp({
     data() {
       return {
@@ -34,9 +24,8 @@ engine: ejs
       };
     },
     methods: {
-      addNum() {
-        console.log('addNum');
-        this.num++
+      addNum(num) {
+        this.num = this.num + num;
       },
       getData(num) {
         console.log('getData', num);
@@ -46,34 +35,24 @@ engine: ejs
   });
 
   app.component('button-counter', {
+    // 在 Vue CLI 中沒有加入 emits 會跳出提示（但不影響運作）
     emits: ['add'],
-    template: `<button type="button" @click="$emit('add')">add</button>`,
-    created() {
-      this.$emit('add')
-    }
+    template: `<button type="button" @click="$emit('add', 1)">add</button>`,
   });
 
-  app.component('input-submit', {
-    data() {
-      return { num: 0 }
-    },
+  app.component('button-counter2', {
     emits: {
-      emitNum: payload => {
-        if (payload > 100) {
-          return true
-        } else {
-          console.warn(`Invalid submit event payload!`)
-          return false
+      add: (num) => {
+        if (typeof num !== 'number') {
+          console.warn('add 事件參數型別不正確')
         }
+        return typeof num === 'number';
       }
     },
-    template: `<div>
-      <input type="number" v-model.number="num">
-      <button type="button" @click="$emit('emitNum', num)">送出</button>
-    </div>`
+    template: `
+      <button type="button" @click="$emit('add', '1')">Emit 驗證是否為數值</button>
+    `,
   })
-
-
 
 
   app.mount('#app');

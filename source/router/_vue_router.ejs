@@ -1,0 +1,54 @@
+---
+title: 路由
+layout: ./source/_layout.ejs
+current: createApp
+menu: intro
+engine: ejs
+---
+<div id="app">
+  <router-link to="a">A</router-link> | 
+  <router-link to="b">B</router-link>
+  <hr>
+  <router-view></router-view>
+</div>
+<script src="https://unpkg.com/vue-router@4.0.5/dist/vue-router.global.js"></script>
+<script>
+const componentA = {
+  template: `這是第 A 頁`
+}
+const componentB = {
+  name: 'B 頁', // 可在開發者工具檢視元件名稱
+  template: `這是第 B 頁`
+}
+
+// 路由表
+const routes = [
+  {
+    path: '/a',
+    component: componentA
+  },
+  {
+    path: '/b',
+    component: componentB
+  }
+];
+
+// 路由設定
+const router = VueRouter.createRouter({
+  // 網址路徑模式：使用網址 hash 的形式
+  history: VueRouter.createWebHashHistory(),
+  // 匯入路由表
+  routes
+});
+
+const app = Vue.createApp({
+  data() {
+    return {
+      counter: 0,
+      text: '這裡有一段文字'
+    }
+  }
+})
+app.use(router);
+app.mount('#app');
+</script>

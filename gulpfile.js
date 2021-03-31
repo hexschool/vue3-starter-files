@@ -123,7 +123,7 @@ gulp.task(
     'vendorJs',
     // 'browserSync',
     'imageMin',
-    'cleanExtra',
+    // 'cleanExtra',
     gulp.parallel('watch'),
     function(done) {
       browserSync.init({
