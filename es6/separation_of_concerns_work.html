@@ -1,0 +1,180 @@
+<!DOCTYPE html><html><head><title>關注點分離</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="images/favicon.ico" rel="shortcut icon"><meta charset="UTF-8"><script src="/javascripts/vendor.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.2/vue.global.js"></script></head><body class="bg-lighter">
+<div class="container main my-5"><div class="row"><main class="col post">
+<!-- 章節標題 --><div class="mb-4"><h1 class="mt-0 text-muted">關注點分離</h1><small>檔名：<code>separation_of_concerns_work.html</code></small></div>
+<!-- 🔥🔥練習開始🔥🔥 -->
+
+<div class="component">
+  <ul></ul>
+  <input type="text" class="inputData">
+  <button type="button" class="addBtn">增加內容</button>
+</div>
+
+<script>
+// #1 資料、畫面、方法分離
+// 畫面 = html
+// 資料 = component.data
+// 方法 = 物件內的其它函式
+
+// #2 元件結構
+// 1. 資料
+// 2. 方法、觸發器
+// 3. 生命週期（初始化）
+const component = {
+  data: [ // 資料
+    '這是第一句話',
+    '這是第二句話',
+    '這是第三句話'
+  ],
+  removeData(id) {
+    this.data.splice(id, 1);
+    this.render();
+  },
+  render() { // 渲染方法
+    const list = document.querySelector('.component ul');
+    let content = '';
+    this.data.forEach((item, i) => {
+      content = `${content}<li>${item} <button type="button" class="btn" data-id="${i}">移除</button></li>`
+    });
+    // 縮寫優化
+    // const content = component.data.map(item => `<li>${item}</li>`).join('');
+    list.innerHTML = content;
+
+    // 加入監聽
+    const btns = document.querySelectorAll('.btn');
+    btns.forEach(btn => btn.addEventListener('click', (e)=> {
+      // #2 重點，移除項目是先移除資料，而不是直接移除 DOM
+      // 如果要進行 AJAX 或更複雜行為，不會因為 DOM 與資料混合而難以運作
+      const id = e.target.dataset.id;
+      this.removeData(id)
+    }))
+  },
+  init() {
+    this.render();
+  }
+}
+component.init();
+
+
+
+</script>
+<!-- 🙇🙇練習結束🙇🙇 -->
+</main>
+  
+    <aside
+      class="col-md-3"><div class="sticky-top" style="top: 76px">
+  <div class="list-group">
+  
+    <a href="/es6/shorthand.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      縮寫
+    </a>
+  
+    <a href="/es6/this.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      this 的運作
+    </a>
+  
+    <a href="/es6/arrow_function.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      箭頭函式
+    </a>
+  
+    <a href="/es6/separation_of_concerns.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      關注點分離
+    </a>
+  
+    <a href="/es6/separation_of_concerns_work.html"
+      class="list-group-item list-group-item-action
+        
+        active">
+      關注點分離 練習題
+    </a>
+  
+    <a href="/es6/object_reference.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      物件參考特性
+    </a>
+  
+    <a href="/es6/promise.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      Promise
+    </a>
+  
+    <a href="/es6/esModule.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      ES Module
+    </a>
+  
+    <a href="/es6/esModule_2.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      ES 模組延伸觀念
+    </a>
+  
+  </div>
+  <div class="mt-3 text-end p-2 bg-light rounded">
+    <small class="text-black-50 fw-light mb-0">文件版本：2021/4/09</small>
+  </div>
+</div>
+
+</aside>
+    
+  </div>
+</div>
+
+<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-secondary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Vue 3 練習手冊</a>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link active" href="/es6/shorthand.html">JS 必備觀念</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/intro/createApp.html">認識 Vue.js</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/template/v-text.html">模板</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/optionsApi/options-methods.html">方法</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/components/component_register.html">元件</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/advApi/adv-refs.html">進階</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/router/vue-router.html">路由</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<footer class="footer py-2 bg-light">
+  <div class="container text-center">
+    <small class="text-black-50 fw-light mb-0">六角學院 Vue 課程專屬文件</small>
+  </div>
+</footer>
+<link rel="stylesheet" href="/stylesheets/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</body>
+</html>
