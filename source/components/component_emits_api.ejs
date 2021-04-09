@@ -1,5 +1,5 @@
 ---
-title: Emits API
+title: Emits 驗證
 layout: ./source/_layout.ejs
 current: component_emits_api
 menu: components
@@ -27,36 +27,23 @@ engine: ejs
       addNum(num) {
         this.num = this.num + num;
       },
-      getData(num) {
-        console.log('getData', num);
-        this.num = num;
-      }
     }
   });
 
   app.component('button-counter', {
-    // 在 Vue CLI 中沒有加入 emits 會跳出提示（但不影響運作）
     data() {
       return {
-        num: 0,
+        num: 1,
       }
     },
-    emits: ['add'],
     // 主要會出現在該值是由 data 定義，但難以追蹤他的變化時會出現
     template: `
-      <button type="button" @click="num++">調整 num 的值</button>
-      <button type="button" @click="$emit('add', num)">add</button>`,
+      <!-- <button type="button" @click="num++">調整 num 的值</button> --> 
+      <button type="button">add</button>`,
   });
 
   app.component('button-counter2', {
-    emits: {
-      add: (num) => {
-        if (typeof num !== 'number') {
-          console.warn('add 事件參數型別不正確')
-        }
-        return typeof num === 'number';
-      }
-    },
+    emits: {},
     template: `
       <button type="button" @click="$emit('add', '1')">Emit 驗證是否為數值</button>
     `,

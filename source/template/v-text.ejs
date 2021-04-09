@@ -6,7 +6,35 @@ menu: template
 engine: ejs
 ---
 <div id="app">
+  <h3>字串 v-text 與 <code v-pre>{{}}</code> (Mustache)</h3>
+  <p>在 吃早餐</p>
+  <p><span></span>在<span ></span>吃早餐</p>
+  <input type="text" v-model="name">
 
+  <hr>
+  <h3>原始字串 v-html</h3>
+  {{ rawHtml }}
+  <p><a href="https://vue3js.cn/docs/zh/api/directives.html#v-html">注意事項</a></p>
+
+  <hr>
+  <h3>單次綁定 v-once</h3>
+  <p>{{ name }}在{{ position }}吃早餐</p>
+  <input type="text" v-model="name">
+
+  <hr>
+  <h3>進階技巧：表達式</h3>
+  <p>{{ }}</p>
+  <p>{{ }}</p>
+  <p>{{ }}</p>
+  <p>{{ }}</p>
+
+  <hr>
+  <h3>進階技巧：顯示資料狀態</h3>
+  <p></p>
+
+  <hr>
+  <h3>顯示 <span v-pre>{{ }}</span></h3>
+  <p>這段文字不會被轉譯：{{ name }}在{{ position }}吃早餐</p>
 </div>
 
 <script>

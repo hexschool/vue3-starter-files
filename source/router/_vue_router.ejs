@@ -1,17 +1,17 @@
 ---
 title: 路由
 layout: ./source/_layout.ejs
-current: createApp
-menu: intro
+current: vue-router
+menu: router
 engine: ejs
 ---
+<script src="https://unpkg.com/vue-router@4.0.5/dist/vue-router.global.js"></script>
 <div id="app">
   <router-link to="a">A</router-link> | 
   <router-link to="b">B</router-link>
   <hr>
   <router-view></router-view>
 </div>
-<script src="https://unpkg.com/vue-router@4.0.5/dist/vue-router.global.js"></script>
 <script>
 const componentA = {
   template: `這是第 A 頁`

@@ -1,0 +1,32 @@
+---
+title: 路由
+layout: ./source/_layout.ejs
+current: vue-router
+menu: router
+engine: ejs
+---
+<script src="https://unpkg.com/vue-router@4.0.5/dist/vue-router.global.js"></script>
+<div id="app">
+  <h2>路由示範</h2>
+  {{ text }}
+</div>
+<script>
+const app = Vue.createApp({
+  data() {
+    return {
+      counter: 0,
+      text: '這裡有一段文字'
+    }
+  }
+});
+
+// 路由設定
+// const router = VueRouter.createRouter({
+//   // 網址路徑模式：使用網址 hash 的形式
+//   history: VueRouter.createWebHashHistory(),
+//   // 匯入路由表
+//   routes: []
+// });
+
+app.mount('#app');
+</script>
