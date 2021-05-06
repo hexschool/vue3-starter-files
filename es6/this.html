@@ -4,11 +4,14 @@
 <!-- 🔥🔥練習開始🔥🔥 -->
 <script>
 // #1 一個函式中包含多少參數
-var a = '全域'
-function fn(params) {
-  console.log(params, this, window, arguments);
-  debugger;
-}
+// var a = '全域'
+// function fn(params) {
+//   console.log(params, this, window, arguments);
+//   debugger;
+// }
+
+// fn(1,2,3);
+
 
 // #2 this 的指向為何
 // var obj = {
@@ -18,57 +21,58 @@ function fn(params) {
 //     // debugger;
 //   }
 // }
+// obj.fn(1,2,3);
 
 // #3 注意：this 的指向相當複雜，大部分情境只需要了解其中一種即可(95%)
 // 傳統函式中的 this 只與調用方式有關
-// var someone = '全域';
-// function callSomeone() {
-//   console.log(this.someone);
-// }
-// callSomeone();
+var someone = '全域';
+function callSomeone() {
+  console.log(this.someone);
+}
+// callSomeone(); // simple call
 
 // #4 各種運用變化
-// var obj = {
-//   someone: '物件',
-//   callSomeone() {
-//     console.log(this.someone);
-//   }
-// }
-// obj.callSomeone();
+var obj = {
+  someone: '物件',
+  callSomeone() {
+    console.log(this.someone);
+  }
+}
+obj.callSomeone();
 
-// var obj2 = {
-//   someone: '物件2',
-//   callSomeone
-// }
-// obj2.callSomeone();
+var obj2 = {
+  someone: '物件2',
+  callSomeone
+}
+obj2.callSomeone();
 
-// var wrapObj = {
-//   someone: '外層物件',
-//   callSomeone,
-//   innerObj: {
-//     someone: '內層物件',
-//     callSomeone,
-//   }
-// }
-// wrapObj.innerObj.callSomeone();
+var wrapObj = {
+  someone: '外層物件',
+  callSomeone,
+  innerObj: {
+    someone: '內層物件',
+    callSomeone,
+  }
+}
+wrapObj.innerObj.callSomeone();
 
-// var obj3 = {
-//   someone: '物件 3',
-//   fn() {
-//     callSomeone(); // 通常平常不會這樣去取用 this
-//   }
-// }
-// obj3.fn();
+var obj3 = {
+  someone: '物件 3',
+  fn() {
+    callSomeone(); // 通常平常不會這樣去取用 this
+  }
+}
+obj3.fn();
 
-// var obj4 = {
-//   someone: '物件 4',
-//   fn() {
-//     setTimeout(function () {
-//       console.log(this.someone);
-//     });
-//   }
-// }
-// obj4.fn();
+var obj4 = {
+  someone: '物件 4',
+  fn() {
+    setTimeout(function () { // callback function 大多都是 simple call 形式
+      console.log(this.someone);
+    });
+  }
+}
+obj4.fn();
 
 </script>
 <!-- 🙇🙇練習結束🙇🙇 -->
