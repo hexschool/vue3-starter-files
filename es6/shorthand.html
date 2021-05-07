@@ -89,6 +89,27 @@ const newMethods = {
 console.log(newMethods);
 
 
+const people = {
+  ted: {
+    name: "Ted",
+    like: "chocolate",
+    price: 55
+  }
+}
+
+// 取出 ted 物件做為單一變數
+const { ted } = people;
+
+// 避免物件直不存在
+const {
+  ted,
+  elaine = {
+    name: "elaine"
+  }
+} = people;
+
+
+
 // #3-3 轉成純陣列
 // querySelectorAll 回傳的是nodelist~ 類陣列，方法會不足
 // const doms = document.querySelectorAll('li');
@@ -107,6 +128,22 @@ function sum(a, b=2) { // 請加入預設值避免錯誤
 
 }
 console.log(sum(1));
+
+
+// #4 解構
+const methods = {
+  getName() {
+    return this.myName;
+  },
+  goWork() {
+    return '卡斯伯去上班';
+  }
+};
+
+const { goWork } = methods;
+console.log(goWork);
+console.log(goWork());
+
 
 
 </script>
