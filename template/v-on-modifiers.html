@@ -1,0 +1,272 @@
+<!DOCTYPE html><html><head><title>v-on 修飾符</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="images/favicon.ico" rel="shortcut icon"><meta charset="UTF-8"><script src="/javascripts/vendor.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.global.js"></script></head><body class="bg-lighter">
+<div class="container main my-5"><div class="row"><main class="col post">
+<!-- 章節標題 --><div class="mb-4"><h1 class="mt-0 text-muted">v-on 修飾符</h1><small>檔名：<code>v-on-modifiers.html</code></small></div>
+<!-- 🔥🔥練習開始🔥🔥 -->
+
+<div id="app">
+
+
+  <h3>修飾符</h3>
+  <h4>按鍵修飾符*</h4>
+  <ul>
+    <li>keyAlias - 只當事件是從特定鍵觸發時才觸發。</li>
+    <li>別名修飾 - .enter, .tab, .delete, .esc, .space, .up, .down, .left, .right</li>
+    <li>修飾符來實現僅在按下相應按鍵時才觸發鼠標或鍵盤事件的監聽器 - .ctrl, .alt, .shift, .meta</li>
+  </ul>
+
+  <h6 class="mt-3">別名修飾</h6>
+  <input type="text" class="form-control" v-model="text" @keyup="trigger('enter')">
+
+  <h6 class="mt-3">相應按鍵時才觸發的監聽器</h6>
+  <input type="text" class="form-control" v-model="text" @keyup="trigger('shift + Enter')">
+
+  <h6 class="mt-3">特定鍵</h6>
+  <input type="text" class="form-control" v-model="text" @keyup="trigger('h')">
+  <hr>
+  <h4>滑鼠修飾符</h4>
+  <ul>
+    <li>.left 只當點擊鼠標左鍵時觸發。</li>
+    <li>.right 只當點擊鼠標右鍵時觸發。</li>
+    <li>.middle 只當點擊鼠標中鍵時觸發。</li>
+  </ul>
+  <h6 class="mt-3">滑鼠修飾符</h6>
+  <div class="p-3 bg-primary">
+    <span class="box" @click="trigger('right button')">
+    </span>
+  </div>
+
+  <hr>
+  <h4>事件修飾符</h4>
+  <ul>
+    <li>.stop - 調用 event.stopPropagation()。</li>
+    <li><strong>.prevent - 調用 event.preventDefault()。</strong></li>
+    <li>.capture - 添加事件偵聽器時使用 capture 模式。</li>
+    <li>.self - 只當事件是從偵聽器綁定的元素本身觸發時才觸發回調。</li>
+    <li>.once - 只觸發一次回調。</li>
+  </ul>
+  <a href="https://www.google.com/" @click="trigger('prevent')">加入 Prevent</a>
+
+  <hr>
+  <h6>預設情境</h6>
+  <a href="https://javascript.info/bubbling-and-capturing">冒泡事件參考文章</a>
+  <div class="p-3 bg-primary" @click="trigger('div')">
+    <span class="box d-flex align-items-center justify-content-center" @click="trigger('box')">
+      <button class="btn btn-outline-secondary" @click="trigger('button')">按我</button>
+    </span>
+  </div>
+
+  <h6 class="mt-3">stopPropagation (防止向外尋找)</h6>
+  <div class="p-3 bg-primary" @click="trigger('div')">
+    <span class="box d-flex align-items-center justify-content-center" @click.stop="trigger('box')">
+      <button class="btn btn-outline-secondary" @click="trigger('button')">按我</button>
+    </span>
+  </div>
+
+  <h6 class="mt-3">事件偵聽器時使用 capture 模式 (事件改為由外而內)</h6>
+  <div class="p-3 bg-primary" @click.capture="trigger('div')">
+    <span class="box d-flex align-items-center justify-content-center" @click.capture="trigger('box')">
+      <button class="btn btn-outline-secondary" @click.capture="trigger('button')">按我</button>
+    </span>
+  </div>
+
+  <h6 class="mt-3">事件偵聽器時使用 self 模式 (只會觸發自己範圍內的)</h6>
+  <div class="p-3 bg-primary" @click.self="trigger('div')">
+    <span class="box d-flex align-items-center justify-content-center" @click.self="trigger('box')">
+      <button class="btn btn-outline-secondary" @click.self="trigger('button')">按我</button>
+    </span>
+  </div>
+  <hr>
+  <h3 class="mt-3">事件偵聽器只觸發一次 once</h3>
+  <div class="p-3 bg-primary" @click.once="trigger('div')">
+    <span class="box d-flex align-items-center justify-content-center" @click.once="trigger('box')">
+      <button class="btn btn-outline-secondary" @click.once="trigger('button')">按我</button>
+    </span>
+  </div>
+  <hr>
+
+
+</div>
+
+<script>
+const App = {
+  data() {
+    return {
+      text: '小明',
+      isTransform: true,
+      num: 10,
+      event: 'click',
+    }
+  },
+  methods: {
+    trigger: function(name) {
+      console.log(name, '此事件被觸發了')
+    }
+  }
+};
+Vue.createApp(App).mount('#app');
+</script>
+
+<style>
+.box {
+  display: block;
+  background-color: var(--bs-light);
+  border: 1px solid var(--bs-gray);
+  width: 80px;
+  height: 80px;
+}
+.box {
+  transition: all .5s;
+}
+.box.rotate {
+  transform: rotate(45deg)
+}
+</style>
+
+<!-- 🙇🙇練習結束🙇🙇 -->
+</main>
+  
+    <aside
+      class="col-md-3"><div class="sticky-top" style="top: 76px">
+  <div class="list-group">
+  
+    <a href="/template/v-text.html"
+      class="list-group-item list-group-item-action
+        list-group-item-success
+        ">
+      渲染資料於畫面上
+    </a>
+  
+    <a href="/template/v-for.html"
+      class="list-group-item list-group-item-action
+        list-group-item-success
+        ">
+      呈現多筆資料
+    </a>
+  
+    <a href="/template/v-if.html"
+      class="list-group-item list-group-item-action
+        list-group-item-success
+        ">
+      渲染判斷
+    </a>
+  
+    <a href="/template/v-bind.html"
+      class="list-group-item list-group-item-action
+        list-group-item-success
+        ">
+      屬性綁定
+    </a>
+  
+    <a href="/template/v-style.html"
+      class="list-group-item list-group-item-action
+        list-group-item-success
+        ">
+      樣式切換
+    </a>
+  
+    <a href="/template/form.html"
+      class="list-group-item list-group-item-action
+        list-group-item-danger
+        ">
+      v-model 與表單
+    </a>
+  
+    <a href="/template/v-model-modifiers.html"
+      class="list-group-item list-group-item-action
+        list-group-item-danger
+        ">
+      v-model 修飾符
+    </a>
+  
+    <a href="/template/v-on.html"
+      class="list-group-item list-group-item-action
+        list-group-item-info
+        ">
+      v-on 事件觸發
+    </a>
+  
+    <a href="/template/v-on-modifiers.html"
+      class="list-group-item list-group-item-action
+        list-group-item-info
+        active">
+      v-on 修飾符
+    </a>
+  
+    <a href="/template/v-on-dom-event.html"
+      class="list-group-item list-group-item-action
+        list-group-item-info
+        ">
+      補充：v-on DOM 事件
+    </a>
+  
+    <a href="/template/directive-final-easy.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      章節挑戰 - 簡單版
+    </a>
+  
+    <a href="/template/directive-final.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      章節挑戰 - 挑戰版
+    </a>
+  
+  </div>
+  <div class="mt-3 text-end p-2 bg-light rounded">
+    <small class="text-black-50 fw-light mb-0">文件版本：2022/11/1</small>
+  </div>
+</div>
+
+</aside>
+    
+  </div>
+</div>
+
+<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-secondary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Vue 3 練習手冊</a>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link " href="/es6/shorthand.html">JS 必備觀念</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/intro/createApp.html">認識 Vue.js</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/template/v-text.html">模板</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/optionsApi/options-methods.html">方法</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/components/component_register.html">元件</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/advApi/adv-refs.html">進階</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/router/vue-router.html">路由</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/composition/proxy.html">Composition API</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/pinia/layout.html">Pinia</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<footer class="footer py-2 bg-light">
+  <div class="container text-center">
+    <small class="text-black-50 fw-light mb-0">六角學院 Vue 課程專屬文件</small>
+  </div>
+</footer>
+<link rel="stylesheet" href="/stylesheets/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</body>
+</html>

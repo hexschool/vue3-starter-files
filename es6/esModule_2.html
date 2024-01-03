@@ -1,0 +1,146 @@
+<!DOCTYPE html><html><head><title>ES 模組延伸觀念</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="images/favicon.ico" rel="shortcut icon"><meta charset="UTF-8"><script src="/javascripts/vendor.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.global.js"></script></head><body class="bg-lighter">
+<div class="container main my-5"><div class="row"><main class="col post">
+<!-- 章節標題 --><div class="mb-4"><h1 class="mt-0 text-muted">ES 模組延伸觀念</h1><small>檔名：<code>esModule_2.html</code></small></div>
+<!-- 🔥🔥練習開始🔥🔥 -->
+<script type="module">
+// #1 每一個 type="module" 的作用域都是獨立的
+
+var a = 1;
+window.b = 2;
+</script>
+<div id="app">{{ counter }}</div>
+<script type="module">
+// #2 可以運用的 ESM 套件
+// 網路上找到的 “ESM”，如果條件允許是可以使用 import 方式載入
+// https://cdnjs.com/libraries/vue
+// 比對語法：https://v3.vuejs.org/guide/introduction.html#declarative-rendering
+
+
+</script>
+<!-- 🙇🙇練習結束🙇🙇 -->
+</main>
+  
+    <aside
+      class="col-md-3"><div class="sticky-top" style="top: 76px">
+  <div class="list-group">
+  
+    <a href="/es6/shorthand.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      縮寫
+    </a>
+  
+    <a href="/es6/this.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      this 的運作
+    </a>
+  
+    <a href="/es6/arrow_function.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      箭頭函式
+    </a>
+  
+    <a href="/es6/separation_of_concerns.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      關注點分離
+    </a>
+  
+    <a href="/es6/separation_of_concerns_work.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      關注點分離 練習題
+    </a>
+  
+    <a href="/es6/object_reference.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      物件參考特性
+    </a>
+  
+    <a href="/es6/promise.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      Promise
+    </a>
+  
+    <a href="/es6/esModule.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      ES Module
+    </a>
+  
+    <a href="/es6/esModule_2.html"
+      class="list-group-item list-group-item-action
+        
+        active">
+      ES 模組延伸觀念
+    </a>
+  
+  </div>
+  <div class="mt-3 text-end p-2 bg-light rounded">
+    <small class="text-black-50 fw-light mb-0">文件版本：2022/11/1</small>
+  </div>
+</div>
+
+</aside>
+    
+  </div>
+</div>
+
+<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-secondary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Vue 3 練習手冊</a>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link active" href="/es6/shorthand.html">JS 必備觀念</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/intro/createApp.html">認識 Vue.js</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/template/v-text.html">模板</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/optionsApi/options-methods.html">方法</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/components/component_register.html">元件</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/advApi/adv-refs.html">進階</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/router/vue-router.html">路由</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/composition/proxy.html">Composition API</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/pinia/layout.html">Pinia</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<footer class="footer py-2 bg-light">
+  <div class="container text-center">
+    <small class="text-black-50 fw-light mb-0">六角學院 Vue 課程專屬文件</small>
+  </div>
+</footer>
+<link rel="stylesheet" href="/stylesheets/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html><html><head><title>Option API</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="images/favicon.ico" rel="shortcut icon"><meta charset="UTF-8"><script src="/javascripts/vendor.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.global.js"></script></head><body class="bg-lighter">
+<div class="container main my-5"><div class="row"><main class="col post">
+<!-- 章節標題 --><div class="mb-4"><h1 class="mt-0 text-muted">Option API</h1><small>檔名：<code>options-api.html</code></small></div>
+<!-- 🔥🔥練習開始🔥🔥 -->
+
+<div id="app">
+  <h3>什麼是 options API 與 composition API</h3>
+  <h5>Option API Sample</h5>
+  <button type="button" @click="trigger">{{ num }}</button>
+
+  <h3>常見的 Option API</h3>
+  <p>官網：<a href="https://vue3js.cn/docs/zh/api/options-api.html">https://vue3js.cn/docs/zh/api/options-api.html</a></p>
+  <ul>
+    <li>常用功能(本章節介紹、部分在元件章節介紹)：data</li>
+    <li>元件知識：template(元件章節)、生命週期(本章節介紹)、資源</li>
+    <li>進階、外部套件：資源、組合、雜項(進階章節、套件運用)</li>
+  </ul>
+
+  <h3>提醒：option API 與 this</h3>
+
+</div>
+<hr>
+<div id="compositionApp">
+  <h5>Composition API Sample</h5>
+  <button type="button" @click="trigger">{{ num }}</button>
+</div>
+
+<!-- https://vue3js.cn/docs/zh/api/options-api.html -->
+<script>
+const App = {
+  name: '漂亮的元件',
+  data() {
+    return {
+      num: 0,
+    }
+  },
+  methods: {
+    trigger: function() {
+      this.num++
+    }
+  },
+  created() {
+    this.num = 1;
+    console.log(this);
+  }
+};
+Vue.createApp(App).mount('#app');
+</script>
+
+<!-- https://vue3js.cn/docs/zh/api/composition-api.html#setup -->
+<script type="module">
+  import { ref, onMounted, createApp } from 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.0.5/vue.esm-browser.js';
+
+  const CompositionApp = {
+    setup() {
+      // 定義資料
+      const num = ref(0);
+      // 生命週期
+      onMounted(() => {
+        num.value = 1;
+      });
+      // Methods
+      function trigger() {
+        console.log('trigger')
+        num.value++;
+      }
+      // 匯出方法、資料
+      return {
+        trigger,
+        num
+      }
+    }
+  }
+  createApp(CompositionApp).mount('#compositionApp')
+</script>
+
+
+<!-- 🙇🙇練習結束🙇🙇 -->
+</main>
+  
+    <aside
+      class="col-md-3"><div class="sticky-top" style="top: 76px">
+  <div class="list-group">
+  
+    <a href="/optionsApi/options-api.html"
+      class="list-group-item list-group-item-action
+        
+        active">
+      option API
+    </a>
+  
+    <a href="/optionsApi/options-methods.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      Methods
+    </a>
+  
+    <a href="/optionsApi/options-computed.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      Computed
+    </a>
+  
+    <a href="/optionsApi/options-watch.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      Watch
+    </a>
+  
+    <a href="/optionsApi/options-life-cycle.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      元件生命週期
+    </a>
+  
+    <a href="/optionsApi/options-final.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      章節挑戰
+    </a>
+  
+  </div>
+  <div class="mt-3 text-end p-2 bg-light rounded">
+    <small class="text-black-50 fw-light mb-0">文件版本：2022/11/1</small>
+  </div>
+</div>
+
+</aside>
+    
+  </div>
+</div>
+
+<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-secondary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Vue 3 練習手冊</a>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link " href="/es6/shorthand.html">JS 必備觀念</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/intro/createApp.html">認識 Vue.js</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/template/v-text.html">模板</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/optionsApi/options-methods.html">方法</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/components/component_register.html">元件</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/advApi/adv-refs.html">進階</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/router/vue-router.html">路由</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/composition/proxy.html">Composition API</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/pinia/layout.html">Pinia</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<footer class="footer py-2 bg-light">
+  <div class="container text-center">
+    <small class="text-black-50 fw-light mb-0">六角學院 Vue 課程專屬文件</small>
+  </div>
+</footer>
+<link rel="stylesheet" href="/stylesheets/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</body>
+</html>

@@ -1,0 +1,192 @@
+<!DOCTYPE html><html><head><title>Promise</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="images/favicon.ico" rel="shortcut icon"><meta charset="UTF-8"><script src="/javascripts/vendor.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.global.js"></script></head><body class="bg-lighter">
+<div class="container main my-5"><div class="row"><main class="col post">
+<!-- 章節標題 --><div class="mb-4"><h1 class="mt-0 text-muted">Promise</h1><small>檔名：<code>promise.html</code></small></div>
+<!-- 🔥🔥練習開始🔥🔥 -->
+<!-- 本章節額外載入的遠端套件 -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+// #1 非同步的觀念
+// function getData() {
+//   setTimeout(() => {
+//     console.log('... 已取得遠端資料');
+//   }, 0);
+// }
+// // 請問取得資料的順序為何
+// const component = {
+//   init() {
+//     console.log(1);
+//     getData();
+//     console.log(2);
+//   }
+// }
+// component.init();
+
+// 更正確的說法，Promise 是為了解決傳統非同步語法難以建構及管理的問題，如有興趣可搜尋 "callback hell js"
+
+// #2 Promise
+// 在此不需要學習 Promise 的建構方式，僅需要了解如何運用即可
+const promiseSetTimeout = (status) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      if (status) {
+        resolve('promiseSetTimeout 成功')
+      } else {
+        reject('promiseSetTimeout 失敗')
+      }
+    }, 0);
+  })
+}
+
+// #2-1 基礎運用
+
+
+// #2-2 串接
+
+
+// #2-3 失敗捕捉
+
+
+// #2-4 元件運用
+// const component = {
+//   data: {},
+//   init() {
+
+//   }
+// }
+
+
+// #3 實戰取得遠端資料
+// #3-1
+// https://github.com/axios/axios
+
+// #3-2 記得捕捉錯誤，Axios 錯誤捕捉技巧
+// https://randomuser.me/
+
+</script>
+<!-- 🙇🙇練習結束🙇🙇 -->
+</main>
+  
+    <aside
+      class="col-md-3"><div class="sticky-top" style="top: 76px">
+  <div class="list-group">
+  
+    <a href="/es6/shorthand.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      縮寫
+    </a>
+  
+    <a href="/es6/this.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      this 的運作
+    </a>
+  
+    <a href="/es6/arrow_function.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      箭頭函式
+    </a>
+  
+    <a href="/es6/separation_of_concerns.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      關注點分離
+    </a>
+  
+    <a href="/es6/separation_of_concerns_work.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      關注點分離 練習題
+    </a>
+  
+    <a href="/es6/object_reference.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      物件參考特性
+    </a>
+  
+    <a href="/es6/promise.html"
+      class="list-group-item list-group-item-action
+        
+        active">
+      Promise
+    </a>
+  
+    <a href="/es6/esModule.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      ES Module
+    </a>
+  
+    <a href="/es6/esModule_2.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      ES 模組延伸觀念
+    </a>
+  
+  </div>
+  <div class="mt-3 text-end p-2 bg-light rounded">
+    <small class="text-black-50 fw-light mb-0">文件版本：2022/11/1</small>
+  </div>
+</div>
+
+</aside>
+    
+  </div>
+</div>
+
+<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-secondary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Vue 3 練習手冊</a>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link active" href="/es6/shorthand.html">JS 必備觀念</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/intro/createApp.html">認識 Vue.js</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/template/v-text.html">模板</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/optionsApi/options-methods.html">方法</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/components/component_register.html">元件</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/advApi/adv-refs.html">進階</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/router/vue-router.html">路由</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/composition/proxy.html">Composition API</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/pinia/layout.html">Pinia</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<footer class="footer py-2 bg-light">
+  <div class="container text-center">
+    <small class="text-black-50 fw-light mb-0">六角學院 Vue 課程專屬文件</small>
+  </div>
+</footer>
+<link rel="stylesheet" href="/stylesheets/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</body>
+</html>

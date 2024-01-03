@@ -1,0 +1,213 @@
+<!DOCTYPE html><html><head><title>表單驗證套件</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="images/favicon.ico" rel="shortcut icon"><meta charset="UTF-8"><script src="/javascripts/vendor.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.global.js"></script></head><body class="bg-lighter">
+<div class="container main my-5"><div class="row"><main class="col post">
+<!-- 章節標題 --><div class="mb-4"><h1 class="mt-0 text-muted">表單驗證套件</h1><small>檔名：<code>adv-vee-validation.html</code></small></div>
+<!-- 🔥🔥練習開始🔥🔥 -->
+
+<div id="app">
+  <h2>套用一個現成的流程</h2>
+  <p>參考文件：<a href="https://hackmd.io/FFv0a5cBToOATP7uI5COMQ">https://hackmd.io/FFv0a5cBToOATP7uI5COMQ</a></p>
+
+  <h3>範例：載入 VeeValidate 驗證套件</h3>
+  <form @submit="onSubmit" >
+    <div class="mb-3">
+      <label for="email" class="form-label">Email</label>
+      <input id="email" name="email" type="email" class="form-control"
+               placeholder="請輸入 Email">
+      <span class="invalid-feedback"></span>
+    </div>
+
+    <div class="mb-3">
+      <label for="name" class="form-label">姓名</label>
+      <input id="name" name="姓名" type="text" class="form-control"
+               placeholder="請輸入姓名">
+      <span class="invalid-feedback"></span>
+    </div>
+
+    <div class="mb-3">
+      <label for="phone" class="form-label">電話</label>
+      <input id="phone" name="電話" type="text" class="form-control"
+               placeholder="請輸入電話">
+      <span class="invalid-feedback"></span>
+    </div>
+
+    <div class="mb-3">
+      <label for="region" class="form-label">地區</label>
+      <select id="region" name="地區" class="form-control">
+        <option value="">請選擇地區</option>
+        <option value="台北市">台北市</option>
+        <option value="高雄市">高雄市</option>
+      </select>
+      <span class="invalid-feedback"></span>
+    </div>
+
+    <div class="mb-3">
+      <label for="address" class="form-label">地址</label>
+      <input id="address" name="地址" type="text" class="form-control"
+               placeholder="請輸入地址">
+      <span class="invalid-feedback"></span>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vee-validate/4.1.17/vee-validate.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@vee-validate/i18n@4.1.17/dist/vee-validate-i18n.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@vee-validate/rules@4.1.17/dist/vee-validate-rules.min.js"></script>
+<script type="module">
+const app = Vue.createApp({
+  data() {
+    return {
+      user: {
+        email: '',
+        name: '',
+        address: '',
+        phone: ''
+      }
+    }
+  },
+  methods: {
+    onSubmit() {
+      console.log(this.user);
+    },
+    isPhone(value) {
+      const phoneNumber = /^(09)[0-9]{8}$/
+      return phoneNumber.test(value) ? true : '需要正確的電話號碼'
+    }
+  },
+  created() {
+    console.log(this);
+  }
+});
+
+
+app.mount('#app');
+</script>
+
+<!-- 🙇🙇練習結束🙇🙇 -->
+</main>
+  
+    <aside
+      class="col-md-3"><div class="sticky-top" style="top: 76px">
+  <div class="list-group">
+  
+    <a href="/advApi/adv-refs.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      Refs
+    </a>
+  
+    <a href="/advApi/adv-teleport.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      Teleport
+    </a>
+  
+    <a href="/advApi/adv-provide.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      跨層級資料傳遞 Provide
+    </a>
+  
+    <a href="/advApi/adv-component-v-model.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      製作包含 v-model 的元件
+    </a>
+  
+    <a href="/advApi/adv-mixins.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      Mixin 混合
+    </a>
+  
+    <a href="/advApi/adv-extend.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      Extend 擴展
+    </a>
+  
+    <a href="/advApi/adv-directive.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      自訂義指令
+    </a>
+  
+    <a href="/advApi/adv-use-plugin.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      外部套件引用
+    </a>
+  
+    <a href="/advApi/adv-vee-validation.html"
+      class="list-group-item list-group-item-action
+        
+        active">
+      表單驗證套件
+    </a>
+  
+  </div>
+  <div class="mt-3 text-end p-2 bg-light rounded">
+    <small class="text-black-50 fw-light mb-0">文件版本：2022/11/1</small>
+  </div>
+</div>
+
+</aside>
+    
+  </div>
+</div>
+
+<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-secondary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Vue 3 練習手冊</a>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link " href="/es6/shorthand.html">JS 必備觀念</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/intro/createApp.html">認識 Vue.js</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/template/v-text.html">模板</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/optionsApi/options-methods.html">方法</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/components/component_register.html">元件</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/advApi/adv-refs.html">進階</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/router/vue-router.html">路由</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/composition/proxy.html">Composition API</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/pinia/layout.html">Pinia</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<footer class="footer py-2 bg-light">
+  <div class="container text-center">
+    <small class="text-black-50 fw-light mb-0">六角學院 Vue 課程專屬文件</small>
+  </div>
+</footer>
+<link rel="stylesheet" href="/stylesheets/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</body>
+</html>

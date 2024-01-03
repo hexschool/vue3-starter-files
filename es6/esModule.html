@@ -1,0 +1,167 @@
+<!DOCTYPE html><html><head><title>ES 模組</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="images/favicon.ico" rel="shortcut icon"><meta charset="UTF-8"><script src="/javascripts/vendor.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.global.js"></script></head><body class="bg-lighter">
+<div class="container main my-5"><div class="row"><main class="col post">
+<!-- 章節標題 --><div class="mb-4"><h1 class="mt-0 text-muted">ES 模組</h1><small>檔名：<code>esModule.html</code></small></div>
+<!-- 🔥🔥練習開始🔥🔥 -->
+<div class="component">
+  <ul></ul>
+</div>
+
+<script>
+// #1 匯出匯入本一體，先掌握匯出更容易理解匯入
+// #1-1 將標籤定義 <script type="module">
+// #1-2 預設匯出：defaultExport.js
+// 常見的匯出方式，通常用於匯出物件，在 Vue 開發中可用來匯出元件
+
+// #1-3 具名匯出：namedExport.js
+// 可用於匯出已定義的變數、物件、函式，專案開發中通常用於 “方法匯出”
+// 第三方的框架、函式、套件很常使用具名定義 “方法”
+
+// #2 匯入方法
+// #2-1 預設匯入
+// 因為預設匯出沒有名字，所以可以為它命名
+
+
+// 注意：因為傳參考的特性，因此元件無法重複利用（Vue.js 中會解決此問題）
+
+// #2-2 具名匯入
+// 單一匯入（建議寫法）
+
+
+
+// 全部匯入（不建議，錯誤較難發現）
+
+
+
+// #3 SideEffect
+// sideEffect.js（沒有包含匯出的檔案）
+
+
+
+</script>
+<!-- 🙇🙇練習結束🙇🙇 -->
+</main>
+  
+    <aside
+      class="col-md-3"><div class="sticky-top" style="top: 76px">
+  <div class="list-group">
+  
+    <a href="/es6/shorthand.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      縮寫
+    </a>
+  
+    <a href="/es6/this.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      this 的運作
+    </a>
+  
+    <a href="/es6/arrow_function.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      箭頭函式
+    </a>
+  
+    <a href="/es6/separation_of_concerns.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      關注點分離
+    </a>
+  
+    <a href="/es6/separation_of_concerns_work.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      關注點分離 練習題
+    </a>
+  
+    <a href="/es6/object_reference.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      物件參考特性
+    </a>
+  
+    <a href="/es6/promise.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      Promise
+    </a>
+  
+    <a href="/es6/esModule.html"
+      class="list-group-item list-group-item-action
+        
+        active">
+      ES Module
+    </a>
+  
+    <a href="/es6/esModule_2.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      ES 模組延伸觀念
+    </a>
+  
+  </div>
+  <div class="mt-3 text-end p-2 bg-light rounded">
+    <small class="text-black-50 fw-light mb-0">文件版本：2022/11/1</small>
+  </div>
+</div>
+
+</aside>
+    
+  </div>
+</div>
+
+<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-secondary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Vue 3 練習手冊</a>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link active" href="/es6/shorthand.html">JS 必備觀念</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/intro/createApp.html">認識 Vue.js</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/template/v-text.html">模板</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/optionsApi/options-methods.html">方法</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/components/component_register.html">元件</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/advApi/adv-refs.html">進階</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/router/vue-router.html">路由</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/composition/proxy.html">Composition API</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/pinia/layout.html">Pinia</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<footer class="footer py-2 bg-light">
+  <div class="container text-center">
+    <small class="text-black-50 fw-light mb-0">六角學院 Vue 課程專屬文件</small>
+  </div>
+</footer>
+<link rel="stylesheet" href="/stylesheets/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</body>
+</html>
