@@ -1,0 +1,202 @@
+<!DOCTYPE html><html><head><title>Extend 擴展</title><meta name="viewport" content="width=device-width, initial-scale=1"><link href="images/favicon.ico" rel="shortcut icon"><meta charset="UTF-8"><script src="/javascripts/vendor.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.37/vue.global.js"></script></head><body class="bg-lighter">
+<div class="container main my-5"><div class="row"><main class="col post">
+<!-- 章節標題 --><div class="mb-4"><h1 class="mt-0 text-muted">Extend 擴展</h1><small>檔名：<code>adv-extend.html</code></small></div>
+<!-- 🔥🔥練習開始🔥🔥 -->
+
+<div id="app">
+  <h2>單一擴展</h2>
+  <card></card>
+
+  <h3>權重</h3>
+<!--  <card2></card2>-->
+
+
+  <h3>重點：</h3>
+  <ul>
+    <li>擴展為單一擴展</li>
+    <li>生命週期可以與 mixins 重複觸發</li>
+    <li>權重：元件屬性 > mixins > extend</li>
+    <li>同名的變數、方法則會依據權重決定</li>
+  </ul>
+</div>
+
+<script>
+const extendComponent1 = {
+  data() {
+    return {
+      name: '擴展的元件'
+    }
+  },
+  created() {
+    console.log('擴展的元件生命週期');
+  }
+};
+const mixinComponent = {
+  data() {
+    return {
+      name: '混合的元件'
+    }
+  },
+  created() {
+    console.log('混合的元件生命週期');
+  }
+};
+
+
+const app = Vue.createApp({});
+
+  app.component('card', {
+    template: `<div class="card">
+      <div class="card-body">{{ name }}</div>
+    </div>`,
+    created() {
+      console.log('card 的元件生命週期')
+    }
+  });
+
+  app.component('card2', {
+    template: `<div class="card">
+        <div class="card-body">{{ name }}</div>
+      </div>`,
+    // data() {
+    //   return {
+    //     name: '元件資料狀態',
+    //   }
+    // },
+    mixins: [mixinComponent],
+    extends: extendComponent1,
+    created() {
+      console.log('card 的元件生命週期')
+    }
+  });
+
+  app.mount('#app');
+</script>
+
+<!-- 🙇🙇練習結束🙇🙇 -->
+</main>
+  
+    <aside
+      class="col-md-3"><div class="sticky-top" style="top: 76px">
+  <div class="list-group">
+  
+    <a href="/advApi/adv-refs.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      Refs
+    </a>
+  
+    <a href="/advApi/adv-teleport.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      Teleport
+    </a>
+  
+    <a href="/advApi/adv-provide.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      跨層級資料傳遞 Provide
+    </a>
+  
+    <a href="/advApi/adv-component-v-model.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      製作包含 v-model 的元件
+    </a>
+  
+    <a href="/advApi/adv-mixins.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      Mixin 混合
+    </a>
+  
+    <a href="/advApi/adv-extend.html"
+      class="list-group-item list-group-item-action
+        
+        active">
+      Extend 擴展
+    </a>
+  
+    <a href="/advApi/adv-directive.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      自訂義指令
+    </a>
+  
+    <a href="/advApi/adv-use-plugin.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      外部套件引用
+    </a>
+  
+    <a href="/advApi/adv-vee-validation.html"
+      class="list-group-item list-group-item-action
+        
+        ">
+      表單驗證套件
+    </a>
+  
+  </div>
+  <div class="mt-3 text-end p-2 bg-light rounded">
+    <small class="text-black-50 fw-light mb-0">文件版本：2022/11/1</small>
+  </div>
+</div>
+
+</aside>
+    
+  </div>
+</div>
+
+<nav class="navbar fixed-top navbar-expand-sm navbar-dark bg-secondary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">Vue 3 練習手冊</a>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link " href="/es6/shorthand.html">JS 必備觀念</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/intro/createApp.html">認識 Vue.js</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/template/v-text.html">模板</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/optionsApi/options-methods.html">方法</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/components/component_register.html">元件</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/advApi/adv-refs.html">進階</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/router/vue-router.html">路由</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/composition/proxy.html">Composition API</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="/pinia/layout.html">Pinia</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<footer class="footer py-2 bg-light">
+  <div class="container text-center">
+    <small class="text-black-50 fw-light mb-0">六角學院 Vue 課程專屬文件</small>
+  </div>
+</footer>
+<link rel="stylesheet" href="/stylesheets/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+</body>
+</html>
